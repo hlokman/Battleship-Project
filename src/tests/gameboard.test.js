@@ -73,4 +73,27 @@ describe("Place the ship horizontally", () => {
   });
 });
 
+describe("Ships touching each other", () => {
+  test("Trying to place a ship where there is another ship in the way", () => {
+    let boardtest = Gameboard();
+    boardtest.placeShipHorizontally(5, 4, 4);
+    boardtest.placeShipVertically(6, 4, 4);
+    expect(() => {
+      boardtest.placeShipHorizontally(7, 1, 4);
+    }).toThrow(Error);
+    expect(boardtest.getBoard()[7][1]).toBe(null);
+    expect(boardtest.getBoard()[7][2]).toBe(null);
+    expect(boardtest.getBoard()[7][3]).toBe(null);
+    expect(boardtest.getBoard()[7][4]).toBe("ship");
+
+    expect(() => {
+      boardtest.placeShipVertically(3, 7, 4);
+    }).toThrow(Error);
+    expect(boardtest.getBoard()[3][7]).toBe(null);
+    expect(boardtest.getBoard()[4][7]).toBe(null);
+    expect(boardtest.getBoard()[5][7]).toBe("ship");
+    expect(boardtest.getBoard()[6][7]).toBe(null);
+  });
+});
+
 //npm test src/tests/gameboard.test.js

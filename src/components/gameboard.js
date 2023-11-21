@@ -19,8 +19,19 @@ const Gameboard = (grid = 10) => {
       throw new Error("The ship goes beyond the limits");
     }
     let newShip = Ship(shipLength);
+    //A system to check if all value = null before placing the ship
+    let check = [];
     for (let i = 0; i < shipLength; i++) {
-      board[line + i][column] = "ship";
+      check.push(board[line + i][column]);
+    }
+    if (!check.includes("ship")) {
+      for (let i = 0; i < shipLength; i++) {
+        board[line + i][column] = "ship";
+      }
+      check = [];
+    } else {
+      check = [];
+      throw new Error("The ship touches another ship");
     }
   }
 
@@ -35,8 +46,19 @@ const Gameboard = (grid = 10) => {
       throw new Error("The ship goes beyond the limits");
     }
     let newShip = Ship(shipLength);
+    //A system to check if all value = null before placing the ship
+    let check = [];
     for (let i = 0; i < shipLength; i++) {
-      board[line][column + i] = "ship";
+      check.push(board[line][column + i]);
+    }
+    if (!check.includes("ship")) {
+      for (let i = 0; i < shipLength; i++) {
+        board[line][column + i] = "ship";
+      }
+      check = [];
+    } else {
+      check = [];
+      throw new Error("The ship touches another ship");
     }
   }
 
