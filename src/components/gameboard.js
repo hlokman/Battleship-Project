@@ -70,16 +70,31 @@ const Gameboard = (grid = 10) => {
   function receiveAttack(line, column) {
     if (board[line][column] === null) {
       board[line][column] = false;
+      return "Oops.. nothing has been hit";
     } else if (board[line][column] === false) {
       throw new Error("This spot has already been hit ");
     } else {
+      board[line][column].hit();
+      board[line][column] = false;
+      return "A ship has been hit!";
     }
+  }
+
+  function allShipsSunk() {
+    return allShips.every((item) => item.isSunk() === true);
   }
 
   const getBoard = () => board;
   const getShips = () => allShips;
 
-  return { getBoard, placeShipHorizontally, placeShipVertically, getShips };
+  return {
+    getBoard,
+    placeShipHorizontally,
+    placeShipVertically,
+    receiveAttack,
+    getShips,
+    allShipsSunk,
+  };
 };
 
 export { Gameboard };

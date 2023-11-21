@@ -96,4 +96,69 @@ describe("Ships touching each other", () => {
   });
 });
 
+describe("Receive attack(s)' logic", () => {
+  test("A ship is hit", () => {
+    let boardtest = Gameboard();
+    boardtest.placeShipHorizontally(5, 4, 4);
+    expect(boardtest.receiveAttack(5, 4)).toBe("A ship has been hit!");
+  });
+
+  test("Attacks placed on the same spot", () => {
+    let boardtest = Gameboard();
+    boardtest.placeShipHorizontally(5, 4, 4);
+    boardtest.placeShipVertically(6, 4, 4);
+    expect(boardtest.receiveAttack(5, 4)).toBe("A ship has been hit!");
+    expect(boardtest.receiveAttack(6, 4)).toBe("A ship has been hit!");
+    expect(() => {
+      boardtest.receiveAttack(5, 4);
+    }).toThrow(Error);
+    expect(() => {
+      boardtest.receiveAttack(6, 4);
+    }).toThrow(Error);
+  });
+
+  test("An empty spot is hit or the coordinates don't exist", () => {
+    let boardtest = Gameboard();
+    boardtest.placeShipHorizontally(5, 4, 4);
+    expect(boardtest.receiveAttack(0, 0)).toBe("Oops.. nothing has been hit");
+    expect(() => {
+      boardtest.receiveAttack(12, 8);
+    }).toThrow(Error);
+  });
+
+  test("The Number of hits is taken into account when a ship is hit (then sunk)", () => {
+    let boardtest = Gameboard();
+    boardtest.placeShipHorizontally(5, 4, 4);
+    boardtest.placeShipVertically(6, 4, 4);
+    boardtest.receiveAttack(5, 4);
+    boardtest.receiveAttack(5, 5);
+    boardtest.receiveAttack(5, 6);
+    expect(boardtest.getShips()[0].getHits()).toBe(3);
+    expect(boardtest.getShips()[0].isSunk()).toBe(false);
+    boardtest.receiveAttack(5, 7);
+    expect(boardtest.getShips()[0].getHits()).toBe(4);
+    expect(boardtest.getShips()[0].isSunk()).toBe(true);
+  });
+
+  test("Gameboards should be able to report whether or not all of their ships have been sunk", () => {
+    let boardtest = Gameboard();
+    boardtest.placeShipHorizontally(5, 4, 4);
+    boardtest.placeShipVertically(6, 4, 4);
+    boardtest.receiveAttack(5, 4);
+    boardtest.receiveAttack(5, 5);
+    boardtest.receiveAttack(5, 6);
+    boardtest.receiveAttack(5, 7);
+    expect(boardtest.getShips()[0].getHits()).toBe(4);
+    expect(boardtest.getShips()[0].isSunk()).toBe(true);
+    expect(boardtest.allShipsSunk()).toBe(false);
+    boardtest.receiveAttack(6, 4);
+    boardtest.receiveAttack(7, 4);
+    boardtest.receiveAttack(8, 4);
+    boardtest.receiveAttack(9, 4);
+    expect(boardtest.getShips()[1].getHits()).toBe(4);
+    expect(boardtest.getShips()[1].isSunk()).toBe(true);
+    expect(boardtest.allShipsSunk()).toBe(true);
+  });
+});
+
 //npm test src/tests/gameboard.test.js
