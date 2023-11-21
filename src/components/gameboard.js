@@ -2,6 +2,7 @@ import { Ship } from "./ship";
 
 const Gameboard = (grid = 10) => {
   let board = [];
+  let allShips = []; //To keep track of all the ships created
 
   for (let i = 0; i < grid; i++) {
     let line = new Array(grid).fill(null);
@@ -24,10 +25,12 @@ const Gameboard = (grid = 10) => {
     for (let i = 0; i < shipLength; i++) {
       check.push(board[line + i][column]);
     }
-    if (!check.includes("ship")) {
+    let checkContent = check.every((item) => item === null);
+    if (checkContent) {
       for (let i = 0; i < shipLength; i++) {
-        board[line + i][column] = "ship";
+        board[line + i][column] = newShip;
       }
+      allShips.push(newShip); //track
       check = [];
     } else {
       check = [];
@@ -51,10 +54,12 @@ const Gameboard = (grid = 10) => {
     for (let i = 0; i < shipLength; i++) {
       check.push(board[line][column + i]);
     }
-    if (!check.includes("ship")) {
+    let checkContent = check.every((item) => item === null);
+    if (checkContent) {
       for (let i = 0; i < shipLength; i++) {
-        board[line][column + i] = "ship";
+        board[line][column + i] = newShip;
       }
+      allShips.push(newShip); //track
       check = [];
     } else {
       check = [];
@@ -62,9 +67,19 @@ const Gameboard = (grid = 10) => {
     }
   }
 
-  const getBoard = () => board;
+  function receiveAttack(line, column) {
+    if (board[line][column] === null) {
+      board[line][column] = false;
+    } else if (board[line][column] === false) {
+      throw new Error("This spot has already been hit ");
+    } else {
+    }
+  }
 
-  return { getBoard, placeShipHorizontally, placeShipVertically };
+  const getBoard = () => board;
+  const getShips = () => allShips;
+
+  return { getBoard, placeShipHorizontally, placeShipVertically, getShips };
 };
 
 export { Gameboard };

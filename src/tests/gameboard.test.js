@@ -16,10 +16,10 @@ describe("Board (grid) render", () => {
     test("Place the ship", () => {
       let boardtest = Gameboard();
       boardtest.placeShipVertically(5, 4, 4);
-      expect(boardtest.getBoard()[5][4]).toBe("ship");
-      expect(boardtest.getBoard()[6][4]).toBe("ship");
-      expect(boardtest.getBoard()[7][4]).toBe("ship");
-      expect(boardtest.getBoard()[8][4]).toBe("ship");
+      expect(boardtest.getBoard()[5][4].isSunk()).toBeFalsy();
+      expect(boardtest.getBoard()[6][4].isSunk()).toBeFalsy();
+      expect(boardtest.getBoard()[7][4].isSunk()).toBeFalsy();
+      expect(boardtest.getBoard()[8][4].isSunk()).toBeFalsy();
     });
 
     test("Ship's position overflowing", () => {
@@ -47,10 +47,10 @@ describe("Place the ship horizontally", () => {
   test("Place the ship", () => {
     let boardtest = Gameboard();
     boardtest.placeShipHorizontally(5, 4, 4);
-    expect(boardtest.getBoard()[5][4]).toBe("ship");
-    expect(boardtest.getBoard()[5][5]).toBe("ship");
-    expect(boardtest.getBoard()[5][6]).toBe("ship");
-    expect(boardtest.getBoard()[5][7]).toBe("ship");
+    expect(boardtest.getBoard()[5][4].isSunk()).toBeFalsy();
+    expect(boardtest.getBoard()[5][5].isSunk()).toBeFalsy();
+    expect(boardtest.getBoard()[5][6].isSunk()).toBeFalsy();
+    expect(boardtest.getBoard()[5][7].isSunk()).toBeFalsy();
   });
 
   test("Ship's position overflowing", () => {
@@ -81,18 +81,18 @@ describe("Ships touching each other", () => {
     expect(() => {
       boardtest.placeShipHorizontally(7, 1, 4);
     }).toThrow(Error);
-    expect(boardtest.getBoard()[7][1]).toBe(null);
-    expect(boardtest.getBoard()[7][2]).toBe(null);
-    expect(boardtest.getBoard()[7][3]).toBe(null);
-    expect(boardtest.getBoard()[7][4]).toBe("ship");
+    expect(boardtest.getBoard()[7][1]).toBeNull();
+    expect(boardtest.getBoard()[7][2]).toBeNull();
+    expect(boardtest.getBoard()[7][3]).toBeNull();
+    expect(boardtest.getBoard()[7][4].isSunk()).toBeFalsy();
 
     expect(() => {
       boardtest.placeShipVertically(3, 7, 4);
     }).toThrow(Error);
-    expect(boardtest.getBoard()[3][7]).toBe(null);
-    expect(boardtest.getBoard()[4][7]).toBe(null);
-    expect(boardtest.getBoard()[5][7]).toBe("ship");
-    expect(boardtest.getBoard()[6][7]).toBe(null);
+    expect(boardtest.getBoard()[3][7]).toBeNull();
+    expect(boardtest.getBoard()[4][7]).toBeNull();
+    expect(boardtest.getBoard()[5][7].isSunk()).toBeFalsy();
+    expect(boardtest.getBoard()[6][7]).toBeNull();
   });
 });
 
