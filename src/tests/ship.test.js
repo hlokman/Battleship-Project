@@ -1,15 +1,38 @@
 import { Ship } from "../components/ship";
 
-describe("A simple ship (length 4) created with the factory", () => {
-  let shiptest = Ship(4);
+describe("Ship creation", () => {
+  test("Length", () => {
+    let shiptest = Ship(4);
+    expect(shiptest.getLength()).toBe(4);
+  });
 
-  test("Ship object's structure", () => {
-    expect(shiptest).toEqual({
-      length: 4,
-      hit: 0,
-      isSunk: false,
-    });
+  test("Initial hit value", () => {
+    let shiptest = Ship(4);
+    expect(shiptest.getHits()).toBe(0);
   });
 });
 
-//npm test src/tests/
+describe("Hit the ship", () => {
+  test("Hit the ship once", () => {
+    let shiptest = Ship(4);
+    shiptest.hit();
+    expect(shiptest.getHits()).toBe(1);
+  });
+
+  test("Hit the ship twice", () => {
+    let shiptest = Ship(4);
+    shiptest.hit();
+    shiptest.hit();
+    expect(shiptest.getHits()).toBe(2);
+  });
+
+  test("Hit the ship 4 times", () => {
+    let shiptest = Ship(4);
+    shiptest.hit();
+    shiptest.hit();
+    shiptest.hit();
+    shiptest.hit();
+    expect(shiptest.getHits()).toBe(4);
+  });
+});
+//npm test src/tests/ship.test.js
