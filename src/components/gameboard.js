@@ -8,7 +8,9 @@ const Gameboard = (grid = 10) => {
     let line = new Array(grid).fill(null);
     board.push(line);
   }
-
+  //All the functions below interact with board(/getBoard())
+  //=> .getLength(), .getHits(), .hit() & .isSunk() are from Ship factory and so we have to target a specific ship from the board(/getBoard()) to use them
+  //=> receiveAttack(line, column) target a specific ship and call .hit() function
   function placeShipVertically(line, column, shipLength) {
     if (
       line < 0 ||
