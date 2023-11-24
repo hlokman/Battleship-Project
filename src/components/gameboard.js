@@ -77,7 +77,7 @@ const Gameboard = (grid = 10) => {
       throw new Error("This spot has already been hit ");
     } else {
       board[line][column].hit();
-      board[line][column] = false;
+      board[line][column] = "hit";
       return "A ship has been hit!";
     }
   }

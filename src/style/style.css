@@ -52,7 +52,7 @@ body {
 #gridDiv {
   /*flex: 1 1 550px;*/
   width: 60%;
-  min-width: 326px;
+  min-width: 350px;
   height: 75%;
   align-self: center;
   justify-self: end;
@@ -84,7 +84,7 @@ body {
 #gridDiv2 {
   /*flex: 1 1 550px;*/
   width: 60%;
-  min-width: 326px;
+  min-width: 350px;
   height: 75%;
   align-self: center;
   justify-self: start;
@@ -105,6 +105,38 @@ body {
 #square {
   outline: 2px solid black;
   background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 35px;
+  min-width: 35px;
+}
+#square.hit {
+  /*display: flex;
+  justify-content: center;
+  align-items: center;*/
+  align-self: center;
+  content: "";
+  background-image: url(./mine.svg);
+  background-repeat: no-repeat;
+  background-size: 65%;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+  border: none;
+  color: inherit;
+}
+#square.fail {
+  align-self: center;
+  content: "";
+  background-image: url(./water.svg);
+  background-repeat: no-repeat;
+  background-size: 65%;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+  border: none;
+  color: inherit;
 }
 
 /*WHEN THE WINDOW IS RESIZED*/
