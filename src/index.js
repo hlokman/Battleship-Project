@@ -2,8 +2,10 @@ import "./style/style.css";
 import { render } from "./components/renderPage";
 import { gameboardUpdate } from "./components/renderBoard";
 import { Players } from "./components/player";
-import { gameFlow } from "./components/gameFlow";
+import { gameLoop } from "./components/gameFlow";
+import { displayController } from "./components/eventListeners";
 
 render();
 gameboardUpdate();
-gameFlow();
+displayController();
+//gameLoop();
