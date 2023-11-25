@@ -81,4 +81,20 @@ function computerWins() {
   flow.textContent = "Oh.. you lost..";
 }
 
-export { gameboardUpdate, playerWins, computerWins };
+function nothingHitMessage() {
+  const flow = document.querySelector("#flow");
+  flow.textContent = "Oops.. nothing has been hit";
+}
+
+function shipHitMessage() {
+  const flow = document.querySelector("#flow");
+  flow.textContent = "A ship has been hit!";
+}
+
+export {
+  gameboardUpdate,
+  playerWins,
+  computerWins,
+  shipHitMessage,
+  nothingHitMessage,
+};

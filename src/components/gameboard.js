@@ -1,4 +1,5 @@
 import { Ship } from "./ship";
+import { shipHitMessage, nothingHitMessage } from "./renderBoard";
 
 const Gameboard = (grid = 10) => {
   let board = [];
@@ -84,8 +85,9 @@ const Gameboard = (grid = 10) => {
   function receiveAttack(line, column, showAlert = true) {
     if (board[line][column] === null) {
       board[line][column] = false;
-      //return "Oops.. nothing has been hit"; RETURN STATEMENT TO BE CHANGED if you want the loop te go to 6 (or change the loop)
-      console.log("Oops.. nothing has been hit");
+      if (showAlert) {
+        nothingHitMessage(); //if (showAlert) in order to put messages functions TO MODIFY WHEN SETTIMEOUT LOGIC WILL BE DONE (erase if (showAlert) to be available for all?)
+      }
       return true;
     } else if (board[line][column] === false || board[line][column] === "hit") {
       if (showAlert) {
@@ -96,8 +98,9 @@ const Gameboard = (grid = 10) => {
       //if it is an object different from null
       board[line][column].hit();
       board[line][column] = "hit";
-      //return "A ship has been hit!"; RETURN STATEMENT TO BE CHANGED if you want the loop te go to 6 (or change the loop)
-      console.log("A ship has been hit!");
+      if (showAlert) {
+        shipHitMessage(); //if (showAlert) in order to put messages functions TO MODIFY WHEN SETTIMEOUT LOGIC WILL BE DONE (erase if (showAlert) to be available for all?)
+      }
       return true;
     }
   }

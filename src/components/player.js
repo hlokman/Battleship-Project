@@ -1,4 +1,5 @@
 import { Gameboard } from "./gameboard";
+import { gameboardUpdate } from "./renderBoard";
 
 const Players = (playerOne = "Player", playerTwo = "Computer") => {
   const player1 = Gameboard();
@@ -14,10 +15,41 @@ const Players = (playerOne = "Player", playerTwo = "Computer") => {
       playerUnderAttack === players[1] ? players[0] : players[1];
   }
 
+  //
+  function playerTurn(line, column) {
+    let result = playerUnderAttack.receiveAttack(line, column);
+    changePlayer();
+
+    if (result) {
+      computerTurn();
+      changePlayer();
+      gameboardUpdate();
+    } else {
+      changePlayer();
+      gameboardUpdate();
+    }
+
+    line = undefined;
+    column = undefined;
+    console.log(players[1].allShipsSunk());
+  }
+  //
+  function computerTurn() {
+    //To modify after to put setTimeout logic !!!
+    let attackResult;
+    do {
+      attackResult = playerUnderAttack.receiveAttack(
+        Math.floor(Math.random() * 10),
+        Math.floor(Math.random() * 10),
+        false
+      );
+    } while (attackResult === false);
+  }
+
   const getPlayers = () => players;
   const getPlayerUnderAttack = () => playerUnderAttack;
 
-  return { getPlayers, changePlayer, getPlayerUnderAttack };
+  return { getPlayers, changePlayer, getPlayerUnderAttack, playerTurn };
 };
 
 export { Players };
