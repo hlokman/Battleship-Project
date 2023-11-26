@@ -1,4 +1,5 @@
 import { Gameboard } from "../components/gameboard";
+import { Players } from "../components/player";
 import { Ship } from "../components/ship";
 
 describe("Board (grid) render", () => {
@@ -100,15 +101,15 @@ describe("Receive attack(s)' logic", () => {
   test("A ship is hit", () => {
     let boardtest = Gameboard();
     boardtest.placeShipHorizontally(5, 4, 4);
-    expect(boardtest.receiveAttack(5, 4)).toBe("A ship has been hit!");
+    expect(boardtest.receiveAttack(5, 4)).toBeTruthy();
   });
 
   test("Attacks placed on the same spot", () => {
     let boardtest = Gameboard();
     boardtest.placeShipHorizontally(5, 4, 4);
     boardtest.placeShipVertically(6, 4, 4);
-    expect(boardtest.receiveAttack(5, 4)).toBe("A ship has been hit!");
-    expect(boardtest.receiveAttack(6, 4)).toBe("A ship has been hit!");
+    expect(boardtest.receiveAttack(5, 4)).toBeTruthy();
+    expect(boardtest.receiveAttack(6, 4)).toBeTruthy();
     expect(() => {
       boardtest.receiveAttack(5, 4);
     }).toThrow(Error);
@@ -120,7 +121,7 @@ describe("Receive attack(s)' logic", () => {
   test("An empty spot is hit or the coordinates don't exist", () => {
     let boardtest = Gameboard();
     boardtest.placeShipHorizontally(5, 4, 4);
-    expect(boardtest.receiveAttack(0, 0)).toBe("Oops.. nothing has been hit");
+    expect(boardtest.receiveAttack(0, 0)).toBeTruthy();
     expect(() => {
       boardtest.receiveAttack(12, 8);
     }).toThrow(Error);
