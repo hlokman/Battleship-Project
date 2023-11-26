@@ -85,22 +85,22 @@ const Gameboard = (grid = 10) => {
   function receiveAttack(line, column, showAlert = true) {
     if (board[line][column] === null) {
       board[line][column] = false;
-      if (showAlert) {
+      /*if (showAlert) {
         nothingHitMessage(); //if (showAlert) in order to put messages functions TO MODIFY WHEN SETTIMEOUT LOGIC WILL BE DONE (erase if (showAlert) to be available for all?)
-      }
-      return true;
+      }*/
+      return null;
     } else if (board[line][column] === false || board[line][column] === "hit") {
-      if (showAlert) {
+      /*if (showAlert) {
         alert("This spot has already been hit "); //if the AI plays: set showAlert to false
-      }
+      }*/
       return false;
     } else if (board[line][column] && typeof board[line][column] === "object") {
       //if it is an object different from null
       board[line][column].hit();
       board[line][column] = "hit";
-      if (showAlert) {
+      /*if (showAlert) {
         shipHitMessage(); //if (showAlert) in order to put messages functions TO MODIFY WHEN SETTIMEOUT LOGIC WILL BE DONE (erase if (showAlert) to be available for all?)
-      }
+      }*/
       return true;
     }
   }

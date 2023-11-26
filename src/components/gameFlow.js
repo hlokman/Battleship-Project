@@ -51,6 +51,7 @@ players.getPlayers()[1].placeShipHorizontally(1, 4, 2);
 players.getPlayers()[1].placeShipHorizontally(3, 4, 2);
 players.getPlayers()[1].placeShipHorizontally(5, 4, 2);
 players.getPlayers()[1].placeShipVertically(8, 8, 1);
+players.getPlayers()[1].placeShipVertically(9, 9, 1);
 players.getPlayerUnderAttack().receiveAttack(1, 4, false);
 players.getPlayerUnderAttack().receiveAttack(1, 5, false);
 players.getPlayerUnderAttack().receiveAttack(3, 4, false);

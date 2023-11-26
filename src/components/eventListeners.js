@@ -4,7 +4,7 @@ import { gameboardUpdate } from "./renderBoard";
 function displayController() {
   const gridDiv = document.querySelector("#gridDiv");
   const gridDiv2 = document.querySelector("#gridDiv2");
-  gameboardUpdate();
+  //gameboardUpdate();
 
   gridDiv.addEventListener("click", (e) => {
     /*console.log(e.target.dataset.line);
@@ -19,6 +19,7 @@ function displayController() {
       playerChoiceLine = e.target.dataset.line;
       playerChoiceColumn = e.target.dataset.column;
       players.playerTurn(playerChoiceLine, playerChoiceColumn);
+      gameboardUpdate(players);
     }
 
     gameLoop();

@@ -1,6 +1,7 @@
 import { players } from "./gameFlow";
+import { check } from "./player";
 
-function gameboardUpdate() {
+function gameboardUpdate(players) {
   const grid1 = document.querySelectorAll("#grid1 > span");
   const grid2 = document.querySelectorAll("#grid2 > span");
 
@@ -64,11 +65,25 @@ function gameboardUpdate() {
       //grid2[i].textContent = "hit";
       grid2[i].className = "hit";
     }
+
+    messages(check);
   }
 
   console.log(players.getPlayers()[0].getBoard());
   console.log(players.getPlayers()[1].getBoard());
   console.log(players);
+}
+
+function messages(checkStatus) {
+  const flow = document.querySelector("#flow");
+
+  if (checkStatus) {
+    flow.textContent = "A ship has been hit!";
+  } else if (checkStatus === false) {
+    flow.textContent = "This spot has already been hit ";
+  } else if (checkStatus === null) {
+    flow.textContent = "Oops.. nothing has been hit";
+  }
 }
 
 function playerWins() {
@@ -81,7 +96,7 @@ function computerWins() {
   flow.textContent = "Oh.. you lost..";
 }
 
-function nothingHitMessage() {
+/*function nothingHitMessage() {
   const flow = document.querySelector("#flow");
   flow.textContent = "Oops.. nothing has been hit";
 }
@@ -89,12 +104,12 @@ function nothingHitMessage() {
 function shipHitMessage() {
   const flow = document.querySelector("#flow");
   flow.textContent = "A ship has been hit!";
-}
+}*/
 
 export {
   gameboardUpdate,
   playerWins,
   computerWins,
-  shipHitMessage,
-  nothingHitMessage,
+  /*shipHitMessage,
+  nothingHitMessage,*/
 };

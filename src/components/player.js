@@ -1,6 +1,8 @@
 import { Gameboard } from "./gameboard";
 import { gameboardUpdate } from "./renderBoard";
 
+let check;
+
 const Players = (playerOne = "Player", playerTwo = "Computer") => {
   const player1 = Gameboard();
   player1.name = "Player";
@@ -19,14 +21,15 @@ const Players = (playerOne = "Player", playerTwo = "Computer") => {
   function playerTurn(line, column) {
     let result = playerUnderAttack.receiveAttack(line, column);
     changePlayer();
+    check = result;
 
-    if (result) {
+    if (result || result === null) {
       computerTurn();
       changePlayer();
-      gameboardUpdate();
+      //gameboardUpdate(); to erase for loose coupling
     } else {
       changePlayer();
-      gameboardUpdate();
+      //gameboardUpdate();
     }
 
     line = undefined;
@@ -52,7 +55,7 @@ const Players = (playerOne = "Player", playerTwo = "Computer") => {
   return { getPlayers, changePlayer, getPlayerUnderAttack, playerTurn };
 };
 
-export { Players };
+export { Players, check };
 
 //Math.floor(Math.random()*10)
 /*const player1 = Gameboard();
