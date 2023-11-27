@@ -1,4 +1,4 @@
-import { players } from "./gameFlow";
+import { players } from "./eventListeners";
 import { check } from "./player";
 
 function gameboardUpdate(players) {
@@ -67,6 +67,7 @@ function gameboardUpdate(players) {
     }
 
     messages(check);
+    messagesPlaceShips();
   }
 
   console.log(players.getPlayers()[0].getBoard());
@@ -84,6 +85,10 @@ function messages(checkStatus) {
   } else if (checkStatus === null) {
     flow.textContent = "Oops.. nothing has been hit";
   }
+}
+
+function messagesPlaceShips() {
+  const flow = document.querySelector("#flow");
 }
 
 function playerWins() {

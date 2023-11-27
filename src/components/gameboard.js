@@ -20,10 +20,10 @@ const Gameboard = (grid = 10) => {
       column < 0 ||
       column > grid - 1
     ) {
-      if (showAlert) {
+      /*if (showAlert) {
         alert("The ship goes beyond the limits"); //if the AI plays: set showAlert to false
-      }
-      return false;
+      }*/
+      return null;
     }
     let newShip = Ship(shipLength);
     //A system to check if all value = null before placing the ship
@@ -38,11 +38,12 @@ const Gameboard = (grid = 10) => {
       }
       allShips.push(newShip); //track
       check = [];
+      return true;
     } else {
       check = [];
-      if (showAlert) {
+      /*if (showAlert) {
         alert("The ship touches another ship"); //if the AI plays: set showAlert to false
-      }
+      }*/
       return false;
     }
   }
@@ -55,10 +56,10 @@ const Gameboard = (grid = 10) => {
       column < 0 ||
       column > grid - 1
     ) {
-      if (showAlert) {
+      /*if (showAlert) {
         alert("The ship goes beyond the limits"); //if the AI plays: set showAlert to false
-      }
-      return false;
+      }*/
+      return null;
     }
     let newShip = Ship(shipLength);
     //A system to check if all value = null before placing the ship
@@ -73,11 +74,12 @@ const Gameboard = (grid = 10) => {
       }
       allShips.push(newShip); //track
       check = [];
+      return true;
     } else {
       check = [];
-      if (showAlert) {
+      /*if (showAlert) {
         alert("The ship touches another ship"); //if the AI plays: set showAlert to false
-      }
+      }*/
       return false;
     }
   }
@@ -123,3 +125,17 @@ const Gameboard = (grid = 10) => {
 };
 
 export { Gameboard };
+
+/*
+I have an issue. I created a Gameboard factory in a gameBoard.js module like so:
+https://codepen.io/hlokman/pen/KKJBPrj?editors=0010 (it might not be the final version)
+
+and I had a jest test that was running:  https://codepen.io/hlokman/pen/mdvjbax?editors=1010
+
+So far so good but now I'm about to create the game flow and event listeners logics so I created players on the gameflow using player factory : I created players using a simple const players = Players() satement for now so using Player factory. This player factory makes use of Gameboard factory to create a board for each player but now my test doesn't even run displaying and the player Factory uses Gameboard factory (to create a board for each) but now my test for gameboard doesn't even run displaying  "Test suite failed to run".
+
+I can make the test run by deleting the variable players. My question is: why I can't run the test when I create that variable?
+
+The most frustrating things is that I know the factories and the game work the way I want (for now) but I can't run the tests....
+
+*/

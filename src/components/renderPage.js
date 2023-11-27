@@ -19,9 +19,6 @@ function render() {
   const displays = document.createElement("div");
   displays.setAttribute("id", "displays");
   grids.appendChild(displays);
-  const controllers = document.createElement("div");
-  controllers.setAttribute("id", "controllers");
-  grids.appendChild(controllers);
 
   const gridDiv = document.createElement("div");
   gridDiv.setAttribute("id", "gridDiv");
@@ -65,6 +62,33 @@ function render() {
       grid2.appendChild(square);
     }
   }
+
+  //Controller part
+  const controllers = document.createElement("div");
+  controllers.setAttribute("id", "controllers");
+  grids.appendChild(controllers);
+  const top = document.createElement("div");
+  top.setAttribute("id", "topController");
+  controllers.appendChild(top);
+  for (let i = 1; i <= 9; i++) {
+    const length = document.createElement("div");
+    length.setAttribute("data-length", `${i}`);
+    length.setAttribute("id", "length");
+    length.textContent = `${i}`;
+    top.appendChild(length);
+  }
+
+  const bottom = document.createElement("div");
+  bottom.setAttribute("id", "bottomController");
+  controllers.appendChild(bottom);
+  const buttonH = document.createElement("button");
+  buttonH.setAttribute("data-position", "horizontal");
+  buttonH.textContent = "Horizontal";
+  bottom.appendChild(buttonH);
+  const buttonV = document.createElement("button");
+  buttonV.setAttribute("data-position", "vertical");
+  buttonV.textContent = "Vertical";
+  bottom.appendChild(buttonV);
 }
 
 export { render };

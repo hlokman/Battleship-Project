@@ -139,6 +139,25 @@ body {
   color: inherit;
 }
 
+#controllers {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+#topController {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+}
+#topController > #length {
+  align-self: center;
+  justify-self: center;
+}
+#bottomController {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
 /*WHEN THE WINDOW IS RESIZED*/
 @media only screen and (min-width: 400px) and (max-width: 1210px) {
   #content {
@@ -152,7 +171,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 80%;
-    min-height: 1200px;
+    min-height: 1300px;
     border: 2px solid red;
   }
   #displays {

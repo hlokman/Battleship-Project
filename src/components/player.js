@@ -2,6 +2,8 @@ import { Gameboard } from "./gameboard";
 import { gameboardUpdate } from "./renderBoard";
 
 let check;
+let checkShips;
+//let chosenLength;
 
 const Players = (playerOne = "Player", playerTwo = "Computer") => {
   const player1 = Gameboard();
@@ -17,7 +19,7 @@ const Players = (playerOne = "Player", playerTwo = "Computer") => {
       playerUnderAttack === players[1] ? players[0] : players[1];
   }
 
-  //
+  //PLAYER AND COMPUTER ATTACKING LOGICS
   function playerTurn(line, column) {
     let result = playerUnderAttack.receiveAttack(line, column);
     changePlayer();
@@ -32,11 +34,11 @@ const Players = (playerOne = "Player", playerTwo = "Computer") => {
       //gameboardUpdate();
     }
 
-    line = undefined;
-    column = undefined;
+    /*line = undefined;
+    column = undefined;*/
     console.log(players[1].allShipsSunk());
   }
-  //
+
   function computerTurn() {
     //To modify after to put setTimeout logic !!!
     let attackResult;
@@ -49,10 +51,40 @@ const Players = (playerOne = "Player", playerTwo = "Computer") => {
     } while (attackResult === false);
   }
 
+  //PLAYER AND COMPUTER PLACING SHIPS (Horizontally + Vertically)
+  function playerShipsHorizontal(line, column, length) {
+    let result = players[0].placeShipHorizontally(line, column, length);
+    checkShips = result;
+
+    console.log(result);
+    if (result) {
+      computerShipsHorizontal();
+    }
+  }
+
+  function computerShipsHorizontal() {
+    let placeResult;
+    do {
+      placeResult = players[1].placeShipHorizontally(
+        Math.floor(Math.random() * 10),
+        Math.floor(Math.random() * 10),
+        length
+      );
+    } while (placeResult === false);
+
+    //chosenLength = undefined;
+  }
+
   const getPlayers = () => players;
   const getPlayerUnderAttack = () => playerUnderAttack;
 
-  return { getPlayers, changePlayer, getPlayerUnderAttack, playerTurn };
+  return {
+    getPlayers,
+    changePlayer,
+    getPlayerUnderAttack,
+    playerTurn,
+    playerShipsHorizontal,
+  };
 };
 
 export { Players, check };

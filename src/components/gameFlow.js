@@ -1,5 +1,5 @@
-import { Players } from "./player";
-import { gameboardUpdate, playerWins, computerWins } from "./renderBoard";
+/*import { Players } from "./player";
+import { gameboardUpdate, playerWins, computerWins } from "./renderBoard";*/
 
 function round(playerChoice, computerChoice) {}
 
@@ -76,7 +76,7 @@ function gameLoop() {
   return { getController };
 }
 
-export { players, gameLoop };
+//export { players, gameLoop };
 
 /*
 for (let i = 0; i < 6; i++) {

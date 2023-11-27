@@ -1,6 +1,32 @@
 import { Gameboard } from "../components/gameboard";
-import { Players } from "../components/player";
-import { Ship } from "../components/ship";
+
+// Mock external modules and functions that are necessary
+/*jest.mock("../components/player", () => ({
+  Players: jest.fn().mockImplementation(() => ({
+    // Mocked properties or methods necessary for Players
+    changePlayer: jest.fn(),
+    getPlayers: jest.fn().mockReturnValue([
+      // Mock for the first player
+      {
+        placeShipHorizontally: jest.fn(),
+        placeShipVertically: jest.fn(),
+        // Add other necessary methods or properties for the first player
+      },
+      // Mock for the second player
+      {
+        placeShipHorizontally: jest.fn(),
+        placeShipVertically: jest.fn(),
+        // Add other necessary methods or properties for the second player
+      },
+      // Add additional player mocks if your application needs them
+    ]),
+    getPlayerUnderAttack: jest.fn().mockReturnValue({
+      receiveAttack: jest.fn(),
+      // Add other necessary methods or properties for the player under attack
+    }),
+    // Other mocked methods and properties
+  })),
+}));*/
 
 describe("Board (grid) render", () => {
   test("Right number of lines", () => {
@@ -110,12 +136,10 @@ describe("Receive attack(s)' logic", () => {
     boardtest.placeShipVertically(6, 4, 4);
     expect(boardtest.receiveAttack(5, 4)).toBeTruthy();
     expect(boardtest.receiveAttack(6, 4)).toBeTruthy();
-    expect(() => {
-      boardtest.receiveAttack(5, 4);
-    }).toThrow(Error);
-    expect(() => {
-      boardtest.receiveAttack(6, 4);
-    }).toThrow(Error);
+    boardtest.receiveAttack(5, 4);
+    expect(boardtest.receiveAttack(5, 4)).toBeFalsy();
+    boardtest.receiveAttack(6, 4);
+    expect(boardtest.receiveAttack(6, 4)).toBeFalsy();
   });
 
   test("An empty spot is hit or the coordinates don't exist", () => {

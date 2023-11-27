@@ -1,32 +1,119 @@
-import { gameLoop, players } from "./gameFlow";
-import { gameboardUpdate } from "./renderBoard";
+//import { /*gameLoop,*/ players } from "./gameFlow";
 
-function displayController() {
-  const gridDiv = document.querySelector("#gridDiv");
-  const gridDiv2 = document.querySelector("#gridDiv2");
-  //gameboardUpdate();
+import { gameboardUpdate, playerWins, computerWins } from "./renderBoard";
+import { Players, chosenLength } from "./player";
 
-  gridDiv.addEventListener("click", (e) => {
-    /*console.log(e.target.dataset.line);
-    console.log(e.target.dataset.column);*/
-  });
+function play() {
+  const players = Players();
+  /*players.changePlayer();
+  players.getPlayers()[0].placeShipHorizontally(5, 4, 4);
+  players.getPlayers()[0].placeShipHorizontally(7, 4, 4);
+  players.getPlayers()[0].placeShipHorizontally(9, 4, 4);
+  players.getPlayers()[0].placeShipVertically(1, 1, 1);
+  players.getPlayers()[0].placeShipVertically(0, 1, 1);
+  players.getPlayers()[0].placeShipVertically(6, 1, 1);
+  players.getPlayers()[0].placeShipVertically(0, 9, 2);
 
-  gridDiv2.addEventListener("click", (e) => {
-    let playerChoiceLine;
-    let playerChoiceColumn;
+  players.changePlayer();
+  players.getPlayers()[1].placeShipHorizontally(1, 4, 2);
+  players.getPlayers()[1].placeShipHorizontally(3, 4, 2);
+  players.getPlayers()[1].placeShipHorizontally(5, 4, 2);
+  players.getPlayers()[1].placeShipVertically(8, 8, 1);
+  players.getPlayers()[1].placeShipVertically(9, 9, 1);
+  players.getPlayerUnderAttack().receiveAttack(1, 4, false);
+  players.getPlayerUnderAttack().receiveAttack(1, 5, false);
+  players.getPlayerUnderAttack().receiveAttack(3, 4, false);
+  players.getPlayerUnderAttack().receiveAttack(3, 5, false);
+  players.getPlayerUnderAttack().receiveAttack(5, 4, false);
+  players.getPlayerUnderAttack().receiveAttack(5, 5, false);*/
+  //gameboardUpdate(players);
 
-    if (e.target.dataset.line) {
-      playerChoiceLine = e.target.dataset.line;
-      playerChoiceColumn = e.target.dataset.column;
-      players.playerTurn(playerChoiceLine, playerChoiceColumn);
-      gameboardUpdate(players);
+  /*
+  
+  EVENT LISTENERS
+
+  */
+
+  (function displayController() {
+    const gridDiv = document.querySelector("#gridDiv");
+    const gridDiv2 = document.querySelector("#gridDiv2");
+    const controllers = document.querySelector("#controllers");
+
+    let chosenLength = 3;
+    let position = "horizontal";
+    controllers.addEventListener("click", (e) => {
+      if (e.target.id === "length") {
+        chosenLength = Number(e.target.dataset.length);
+      }
+
+      if (e.target.localName === "button") {
+        position = Number(e.target.dataset.position);
+      }
+    });
+
+    //Player grid (to place ships)
+    gridDiv.addEventListener("click", (e) => {
+      let playerChoiceLine;
+      let playerChoiceColumn;
+
+      if (e.target.dataset.line) {
+        playerChoiceLine = Number(e.target.dataset.line);
+        playerChoiceColumn = Number(e.target.dataset.column);
+        players.playerShipsHorizontal(
+          playerChoiceLine,
+          playerChoiceColumn,
+          chosenLength
+        );
+        gameboardUpdate(players);
+      }
+    });
+
+    //Computer grid (to attack)
+    const controller = new AbortController();
+    gridDiv2.addEventListener(
+      "click",
+      (e) => {
+        let playerChoiceLine;
+        let playerChoiceColumn;
+
+        if (e.target.dataset.line) {
+          playerChoiceLine = e.target.dataset.line;
+          playerChoiceColumn = e.target.dataset.column;
+          players.playerTurn(playerChoiceLine, playerChoiceColumn);
+          gameboardUpdate(players);
+        }
+        gameLoop();
+
+        if (gameLoop() === true) {
+          controller.abort();
+        }
+      },
+      { signal: controller.signal }
+    );
+  })();
+
+  function gameLoop() {
+    if (
+      players.getPlayers()[0].allShipsSunk() &&
+      players.getPlayers()[0].getShips().length !== 0
+    ) {
+      computerWins();
+      return true;
+    } else if (
+      players.getPlayers()[1].allShipsSunk() &&
+      players.getPlayers()[1].getShips().length !== 0
+    ) {
+      playerWins();
+      return true;
     }
 
-    gameLoop();
-  });
+    //const getController = () => controller;
+
+    return {};
+  }
 }
 
-export { displayController };
+export { /*displayController,*/ play /*, players*/ };
 
 /*
   
