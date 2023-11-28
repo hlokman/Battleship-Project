@@ -1,5 +1,5 @@
 import { players } from "./eventListeners";
-import { check } from "./player";
+import { check, checkPositions } from "./player";
 
 function gameboardUpdate(players) {
   const grid1 = document.querySelectorAll("#grid1 > span");
@@ -67,7 +67,7 @@ function gameboardUpdate(players) {
     }
 
     messages(check);
-    messagesPlaceShips();
+    messagesPositions(checkPositions);
   }
 
   console.log(players.getPlayers()[0].getBoard());
@@ -84,6 +84,18 @@ function messages(checkStatus) {
     flow.textContent = "This spot has already been hit ";
   } else if (checkStatus === null) {
     flow.textContent = "Oops.. nothing has been hit";
+  }
+}
+
+function messagesPositions(checkStatus) {
+  const flow = document.querySelector("#flow");
+
+  if (checkStatus) {
+    flow.textContent = "";
+  } else if (checkStatus === false) {
+    flow.textContent = "The ship touches another ship. Choose another spot";
+  } else if (checkStatus === null) {
+    flow.textContent = "The ship goes beyond the limits";
   }
 }
 

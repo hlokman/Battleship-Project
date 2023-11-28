@@ -145,7 +145,7 @@ body {
 }
 #topController {
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: repeat(10, 1fr);
 }
 #topController > #length {
   align-self: center;

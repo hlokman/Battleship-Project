@@ -33,30 +33,55 @@ function play() {
   EVENT LISTENERS
 
   */
+  //players.playerShipsHorizontal(1, 1, 9);
 
+  gameboardUpdate(players);
   (function displayController() {
     const gridDiv = document.querySelector("#gridDiv");
     const gridDiv2 = document.querySelector("#gridDiv2");
     const controllers = document.querySelector("#controllers");
-
     let chosenLength = 3;
     let position = "horizontal";
+
     controllers.addEventListener("click", (e) => {
       if (e.target.id === "length") {
         chosenLength = Number(e.target.dataset.length);
       }
 
       if (e.target.localName === "button") {
-        position = Number(e.target.dataset.position);
+        position = e.target.dataset.position;
       }
     });
 
     //Player grid (to place ships)
     gridDiv.addEventListener("click", (e) => {
-      let playerChoiceLine;
-      let playerChoiceColumn;
+      let playerChoiceLine = e.target.dataset.line;
+      let playerChoiceColumn = e.target.dataset.column;
 
-      if (e.target.dataset.line) {
+      if (playerChoiceLine && position === "horizontal") {
+        players.playerShipPlacementH(
+          Number(playerChoiceLine),
+          Number(playerChoiceColumn),
+          Number(chosenLength)
+        );
+      } else if (playerChoiceLine && position === "vertical") {
+        players.playerShipPlacementV(
+          Number(playerChoiceLine),
+          Number(playerChoiceColumn),
+          Number(chosenLength)
+        );
+      }
+
+      gameboardUpdate(players);
+      console.log(
+        players.getPlayers()[0].getShips().length +
+          "  AI=" +
+          players.getPlayers()[1].getShips().length
+      );
+    });
+
+    /*
+          if (e.target.dataset.line) {
         playerChoiceLine = Number(e.target.dataset.line);
         playerChoiceColumn = Number(e.target.dataset.column);
         players.playerShipsHorizontal(
@@ -65,9 +90,7 @@ function play() {
           chosenLength
         );
         gameboardUpdate(players);
-      }
-    });
-
+      } */
     //Computer grid (to attack)
     const controller = new AbortController();
     gridDiv2.addEventListener(

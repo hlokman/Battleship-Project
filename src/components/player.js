@@ -2,8 +2,7 @@ import { Gameboard } from "./gameboard";
 import { gameboardUpdate } from "./renderBoard";
 
 let check;
-let checkShips;
-//let chosenLength;
+let checkPositions;
 
 const Players = (playerOne = "Player", playerTwo = "Computer") => {
   const player1 = Gameboard();
@@ -33,10 +32,7 @@ const Players = (playerOne = "Player", playerTwo = "Computer") => {
       changePlayer();
       //gameboardUpdate();
     }
-
-    /*line = undefined;
-    column = undefined;*/
-    console.log(players[1].allShipsSunk());
+    //console.log(players[1].allShipsSunk());
   }
 
   function computerTurn() {
@@ -52,27 +48,49 @@ const Players = (playerOne = "Player", playerTwo = "Computer") => {
   }
 
   //PLAYER AND COMPUTER PLACING SHIPS (Horizontally + Vertically)
-  function playerShipsHorizontal(line, column, length) {
+  //---Horizontal
+  function playerShipPlacementH(line, column, length) {
     let result = players[0].placeShipHorizontally(line, column, length);
-    checkShips = result;
+    checkPositions = result;
 
-    console.log(result);
-    if (result) {
-      computerShipsHorizontal();
+    //console.log("result:   " + result);
+    if (result === true) {
+      computerShipPlacementH(length);
     }
   }
 
-  function computerShipsHorizontal() {
+  function computerShipPlacementH(chosenLength) {
     let placeResult;
+
     do {
       placeResult = players[1].placeShipHorizontally(
         Math.floor(Math.random() * 10),
         Math.floor(Math.random() * 10),
-        length
+        chosenLength
       );
-    } while (placeResult === false);
+      //console.log("placeResult:   " + placeResult);
+    } while (placeResult === false || placeResult === null);
+  }
+  //---Vertical
+  function playerShipPlacementV(line, column, length) {
+    let result = players[0].placeShipVertically(line, column, length);
+    checkPositions = result;
 
-    //chosenLength = undefined;
+    console.log("result:   " + result);
+    if (result === true) {
+      computerShipPlacementV(length);
+    }
+  }
+
+  function computerShipPlacementV(chosenLength) {
+    let placeResult;
+    do {
+      placeResult = players[1].placeShipVertically(
+        Math.floor(Math.random() * 10),
+        Math.floor(Math.random() * 10),
+        chosenLength
+      );
+    } while (placeResult === false || placeResult === null);
   }
 
   const getPlayers = () => players;
@@ -83,11 +101,12 @@ const Players = (playerOne = "Player", playerTwo = "Computer") => {
     changePlayer,
     getPlayerUnderAttack,
     playerTurn,
-    playerShipsHorizontal,
+    playerShipPlacementH,
+    playerShipPlacementV,
   };
 };
 
-export { Players, check };
+export { Players, check, checkPositions };
 
 //Math.floor(Math.random()*10)
 /*const player1 = Gameboard();

@@ -70,7 +70,7 @@ function render() {
   const top = document.createElement("div");
   top.setAttribute("id", "topController");
   controllers.appendChild(top);
-  for (let i = 1; i <= 9; i++) {
+  for (let i = 1; i <= 10; i++) {
     const length = document.createElement("div");
     length.setAttribute("data-length", `${i}`);
     length.setAttribute("id", "length");
