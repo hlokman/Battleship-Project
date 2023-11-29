@@ -1,5 +1,5 @@
 import { Ship } from "./ship";
-import { shipHitMessage, nothingHitMessage } from "./renderBoard";
+import { shipHitMessage, nothingHitMessage } from "./renderBoardAndMessages";
 
 const Gameboard = (grid = 10) => {
   let board = [];

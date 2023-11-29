@@ -3,13 +3,29 @@ function render() {
   const header = document.querySelector("#header");
 
   //Players and flow part
-  const playersAndFlow = document.createElement("div");
-  playersAndFlow.setAttribute("id", "playersAndFlow");
-  header.appendChild(playersAndFlow);
+  const buttonsAndFlow = document.createElement("div");
+  buttonsAndFlow.setAttribute("id", "buttonsAndFlow");
+  header.appendChild(buttonsAndFlow);
+  const alert = document.createElement("div");
+  alert.setAttribute("id", "alert");
+  header.appendChild(alert);
 
   const flow = document.createElement("div");
   flow.setAttribute("id", "flow");
-  playersAndFlow.appendChild(flow);
+  flow.textContent = "Place your ships (Max: 10 ships)";
+  buttonsAndFlow.appendChild(flow);
+
+  const buttons = document.createElement("div");
+  buttons.setAttribute("id", "buttons");
+  buttonsAndFlow.appendChild(buttons);
+  const start = document.createElement("button");
+  start.setAttribute("id", "startButton");
+  start.textContent = "Start";
+  buttons.appendChild(start);
+  const restart = document.createElement("button");
+  restart.setAttribute("id", "restartButton");
+  restart.textContent = "Restart";
+  buttons.appendChild(restart);
 
   //Grids part
   const grids = document.createElement("div");
@@ -25,6 +41,7 @@ function render() {
   displays.appendChild(gridDiv);
   const playerOne = document.createElement("div");
   playerOne.setAttribute("id", "playerOne");
+  playerOne.textContent = "player";
   gridDiv.appendChild(playerOne);
   const grid1 = document.createElement("div");
   grid1.setAttribute("id", "grid1");
@@ -54,6 +71,7 @@ function render() {
   displays.appendChild(gridDiv2);
   const playerTwo = document.createElement("div");
   playerTwo.setAttribute("id", "playerTwo");
+  playerTwo.textContent = "computer";
   gridDiv2.appendChild(playerTwo);
   const grid2 = document.createElement("div");
   grid2.setAttribute("id", "grid2");
@@ -72,7 +90,7 @@ function render() {
   const controllers = document.createElement("div");
   controllers.setAttribute("id", "controllers");
   grids.appendChild(controllers);
-  const top = document.createElement("div");
+  /*const top = document.createElement("div");
   top.setAttribute("id", "topController");
   controllers.appendChild(top);
   for (let i = 1; i <= 10; i++) {
@@ -81,7 +99,7 @@ function render() {
     length.setAttribute("id", "length");
     length.textContent = `${i}`;
     top.appendChild(length);
-  }
+  }*/
 
   const bottom = document.createElement("div");
   bottom.setAttribute("id", "bottomController");
@@ -110,7 +128,7 @@ function render() {
       const ship = document.createElement("div");
       ship.setAttribute("id", `squareShip`);
       square.appendChild(ship);
-      square.style.gridTemplateColumns = `repeat(${i}, 35px )`;
+      square.style.gridTemplateColumns = `repeat(${i}, 40px )`;
     }
   }
 }
@@ -125,15 +143,27 @@ function changeDisplayChoices(target) {
     ships.forEach((item, index) => {
       item.className = target;
       item.style.gridTemplateColumns = "";
-      item.style.gridTemplateRows = `repeat(${index + 1}, 35px )`;
+      item.style.gridTemplateRows = `repeat(${index + 1}, 40px )`;
     });
   } else {
     ships.forEach((item, index) => {
       item.className = target;
       item.style.gridTemplateRows = "";
-      item.style.gridTemplateColumns = `repeat(${index + 1}, 35px )`;
+      item.style.gridTemplateColumns = `repeat(${index + 1}, 40px )`;
     });
   }
 }
 
-export { render, changeDisplayChoices };
+function startTriggered() {
+  const controllers = document.querySelector("#controllers");
+  controllers.style.display = "none";
+
+  /*const gridDiv2 = document.querySelector("#gridDiv2");
+  gridDiv2.classList.add("playable");*/
+  const grids = document.querySelector("#grids");
+  grids.classList.add("rearranged");
+  const start = document.querySelector("#startButton");
+  start.style.display = "none";
+}
+
+export { render, changeDisplayChoices, startTriggered };

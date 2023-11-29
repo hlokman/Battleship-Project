@@ -88,15 +88,30 @@ function messages(checkStatus) {
 }
 
 function messagesPositions(checkStatus) {
-  const flow = document.querySelector("#flow");
+  const alert = document.querySelector("#alert");
 
   if (checkStatus) {
-    flow.textContent = "";
+    alert.textContent = "";
   } else if (checkStatus === false) {
-    flow.textContent = "The ship touches another ship. Choose another spot";
+    alert.textContent = "The ship touches another ship. Choose another spot";
   } else if (checkStatus === null) {
-    flow.textContent = "The ship goes beyond the limits";
+    alert.textContent = "The ship goes beyond the limits";
   }
+}
+
+function noShipPlacedMessage() {
+  const flow = document.querySelector("#flow");
+  flow.textContent = "You have to place at least 1 ship";
+}
+
+function startMessage() {
+  const flow = document.querySelector("#flow");
+  flow.textContent = "Time to start! You play first";
+}
+
+function erasedAlert() {
+  const alert = document.querySelector("#alert");
+  alert.textContent = "";
 }
 
 function messagesPlaceShips() {
@@ -127,6 +142,9 @@ export {
   gameboardUpdate,
   playerWins,
   computerWins,
+  noShipPlacedMessage,
+  startMessage,
+  erasedAlert,
   /*shipHitMessage,
   nothingHitMessage,*/
 };

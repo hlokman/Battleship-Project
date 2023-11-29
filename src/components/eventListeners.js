@@ -1,8 +1,16 @@
 //import { /*gameLoop,*/ players } from "./gameFlow";
 
-import { gameboardUpdate, playerWins, computerWins } from "./renderBoard";
+import {
+  gameboardUpdate,
+  playerWins,
+  computerWins,
+  noShipPlacedMessage,
+  startMessage,
+  erasedAlert,
+} from "./renderBoardAndMessages";
 import { Players, chosenLength } from "./player";
-import { changeDisplayChoices } from "./renderPage";
+import { changeDisplayChoices, startTriggered } from "./renderPage";
+//import { startMessage,   noShipPlacedMessage, } from "./renderBoardAndMessages";
 
 function play() {
   const players = Players();
@@ -14,10 +22,14 @@ function play() {
     const playerGrid = document.querySelector("#grid1");
     const controllers = document.querySelector("#controllers");
     const ships = document.querySelector("#choices");
+    const start = document.querySelector("#startButton");
+    const restart = document.querySelector("#restartButton");
     let chosenLength = 3;
     let position = "horizontal";
+    let maxPlacement = 0;
 
     //DRAG AND DROP--------------------------------------------------------------------------------------------------------------------------------
+
     ships.addEventListener("dragstart", (e) => {
       //take the values of the dragged element
       chosenLength = Number(e.target.attributes[0].value);
@@ -109,33 +121,53 @@ function play() {
       }
 
       //+logic when drop => run the functions below
-      let playerChoiceLine = e.target.attributes[1].value;
-      let playerChoiceColumn = e.target.attributes[0].value;
+      //To limit the number of of ships to 10 max
+      if (players.getPlayers()[0].getShips().length < 10) {
+        let playerChoiceLine = e.target.attributes[1].value;
+        let playerChoiceColumn = e.target.attributes[0].value;
 
-      if (/*e.target.attributes[1].value &&*/ position === "horizontal") {
-        players.playerShipPlacementH(
-          Number(playerChoiceLine),
-          Number(playerChoiceColumn),
-          Number(chosenLength)
-        );
-      } else {
-        players.playerShipPlacementV(
-          Number(playerChoiceLine),
-          Number(playerChoiceColumn),
-          Number(chosenLength)
-        );
+        if (/*e.target.attributes[1].value &&*/ position === "horizontal") {
+          players.playerShipPlacementH(
+            Number(playerChoiceLine),
+            Number(playerChoiceColumn),
+            Number(chosenLength)
+          );
+        } else {
+          players.playerShipPlacementV(
+            Number(playerChoiceLine),
+            Number(playerChoiceColumn),
+            Number(chosenLength)
+          );
+        }
+
+        if (players.getPlayers()[0].getShips().length === 10) {
+          startTriggered();
+        }
+        gameboardUpdate(players);
       }
 
-      gameboardUpdate(players);
       console.log(
         players.getPlayers()[0].getShips().length +
           "  AI=" +
           players.getPlayers()[1].getShips().length
       );
     });
+
     //END OF DRAG AND DROP-----------------------------------------------------------------------------------------------------------------------
     //Drag and Drop used instead of .addEventListener("click")
 
+    start.addEventListener("click", (e) => {
+      if (players.getPlayers()[0].getShips().length !== 0) {
+        startMessage();
+        startTriggered();
+      } else if (players.getPlayers()[0].getShips().length === 0) {
+        noShipPlacedMessage();
+      }
+    });
+
+    restart.addEventListener("click", (e) => {
+      document.location.reload();
+    });
     controllers.addEventListener("click", (e) => {
       if (e.target.localName === "button") {
         changeDisplayChoices(e.target.dataset.position);
@@ -177,12 +209,21 @@ function play() {
         let playerChoiceLine;
         let playerChoiceColumn;
 
-        if (e.target.dataset.line) {
-          playerChoiceLine = e.target.dataset.line;
-          playerChoiceColumn = e.target.dataset.column;
-          players.playerTurn(playerChoiceLine, playerChoiceColumn);
-          gameboardUpdate(players);
+        //In case the computer grid is clicked before any ship is placed
+        if (players.getPlayers()[0].getShips().length === 0) {
+          noShipPlacedMessage();
+        } else {
+          //if at least 1 ship placed => start triggered when computer grid is clicked
+          if (e.target.dataset.line) {
+            playerChoiceLine = e.target.dataset.line;
+            playerChoiceColumn = e.target.dataset.column;
+            players.playerTurn(playerChoiceLine, playerChoiceColumn);
+            gameboardUpdate(players);
+            startTriggered();
+            erasedAlert();
+          }
         }
+
         gameLoop();
 
         if (gameLoop() === true) {

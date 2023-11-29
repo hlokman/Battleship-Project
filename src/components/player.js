@@ -1,5 +1,5 @@
 import { Gameboard } from "./gameboard";
-import { gameboardUpdate } from "./renderBoard";
+import { gameboardUpdate } from "./renderBoardAndMessages";
 
 let check;
 let checkPositions;
@@ -27,9 +27,11 @@ const Players = (playerOne = "Player", playerTwo = "Computer") => {
     if (result || result === null) {
       computerTurn();
       changePlayer();
+      console.log("check=========  " + check);
       //gameboardUpdate(); to erase for loose coupling
     } else {
       changePlayer();
+      console.log("check=========  " + check);
       //gameboardUpdate();
     }
     //console.log(players[1].allShipsSunk());
