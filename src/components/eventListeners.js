@@ -2,59 +2,148 @@
 
 import { gameboardUpdate, playerWins, computerWins } from "./renderBoard";
 import { Players, chosenLength } from "./player";
+import { changeDisplayChoices } from "./renderPage";
 
 function play() {
   const players = Players();
-  /*players.changePlayer();
-  players.getPlayers()[0].placeShipHorizontally(5, 4, 4);
-  players.getPlayers()[0].placeShipHorizontally(7, 4, 4);
-  players.getPlayers()[0].placeShipHorizontally(9, 4, 4);
-  players.getPlayers()[0].placeShipVertically(1, 1, 1);
-  players.getPlayers()[0].placeShipVertically(0, 1, 1);
-  players.getPlayers()[0].placeShipVertically(6, 1, 1);
-  players.getPlayers()[0].placeShipVertically(0, 9, 2);
-
-  players.changePlayer();
-  players.getPlayers()[1].placeShipHorizontally(1, 4, 2);
-  players.getPlayers()[1].placeShipHorizontally(3, 4, 2);
-  players.getPlayers()[1].placeShipHorizontally(5, 4, 2);
-  players.getPlayers()[1].placeShipVertically(8, 8, 1);
-  players.getPlayers()[1].placeShipVertically(9, 9, 1);
-  players.getPlayerUnderAttack().receiveAttack(1, 4, false);
-  players.getPlayerUnderAttack().receiveAttack(1, 5, false);
-  players.getPlayerUnderAttack().receiveAttack(3, 4, false);
-  players.getPlayerUnderAttack().receiveAttack(3, 5, false);
-  players.getPlayerUnderAttack().receiveAttack(5, 4, false);
-  players.getPlayerUnderAttack().receiveAttack(5, 5, false);*/
-  //gameboardUpdate(players);
-
-  /*
-  
-  EVENT LISTENERS
-
-  */
-  //players.playerShipsHorizontal(1, 1, 9);
 
   gameboardUpdate(players);
   (function displayController() {
     const gridDiv = document.querySelector("#gridDiv");
     const gridDiv2 = document.querySelector("#gridDiv2");
+    const playerGrid = document.querySelector("#grid1");
     const controllers = document.querySelector("#controllers");
+    const ships = document.querySelector("#choices");
     let chosenLength = 3;
     let position = "horizontal";
 
-    controllers.addEventListener("click", (e) => {
-      if (e.target.id === "length") {
-        chosenLength = Number(e.target.dataset.length);
+    //DRAG AND DROP--------------------------------------------------------------------------------------------------------------------------------
+    ships.addEventListener("dragstart", (e) => {
+      //take the values of the dragged element
+      chosenLength = Number(e.target.attributes[0].value);
+      position = e.target.className;
+    });
+
+    playerGrid.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      //take the values of the hovered element
+      e.target.dataset.over = "yes";
+      //IF HORIZONTAL
+      if (position === "horizontal") {
+        //Change the background color taking into account the chosen length (declared above) IF the data attribute number exist
+        for (let i = 0; i < chosenLength; i++) {
+          if (
+            e.target.parentNode.childNodes[Number(e.target.dataset.number) + i]
+          ) {
+            e.target.parentNode.childNodes[
+              Number(e.target.dataset.number) + i
+            ].dataset.over = "yes";
+          }
+        }
+      } //IF VERTICAL
+      else {
+        //Change the background color taking into account the chosen length (declared above) IF the data attribute number exist
+        for (
+          let i = Number(e.target.dataset.number);
+          i <= Number(e.target.dataset.number) + (chosenLength - 1) * 10;
+          i += 10
+        ) {
+          if (e.target.parentNode.childNodes[i]) {
+            e.target.parentNode.childNodes[i].dataset.over = "yes";
+          }
+        }
+      }
+    });
+
+    playerGrid.addEventListener("dragleave", (e) => {
+      e.preventDefault();
+      e.target.dataset.over = "";
+      //In order to undo the changing background color
+      //IF HORIZONTAL
+      if (position === "horizontal") {
+        for (let i = 0; i < chosenLength; i++) {
+          if (
+            e.target.parentNode.childNodes[Number(e.target.dataset.number) + i]
+          ) {
+            e.target.parentNode.childNodes[
+              Number(e.target.dataset.number) + i
+            ].dataset.over = "";
+          }
+        }
+      } //IF VERTICAL
+      else {
+        //Change the background color taking into account the chosen length (declared above) IF the data attribute number exist
+        for (
+          let i = Number(e.target.dataset.number);
+          i <= Number(e.target.dataset.number) + (chosenLength - 1) * 10;
+          i += 10
+        ) {
+          if (e.target.parentNode.childNodes[i]) {
+            e.target.parentNode.childNodes[i].dataset.over = "";
+          }
+        }
+      }
+    });
+
+    playerGrid.addEventListener("drop", (e) => {
+      e.preventDefault();
+      //In order to undo the changing background color when leave drop when placement fails (Horizontal)
+      for (let i = 0; i < chosenLength; i++) {
+        if (
+          e.target.parentNode.childNodes[Number(e.target.dataset.number) + i]
+        ) {
+          e.target.parentNode.childNodes[
+            Number(e.target.dataset.number) + i
+          ].dataset.over = "";
+        }
+      }
+      //In order to undo the changing background color when leave drop when placement fails (Vertical)
+      for (
+        let i = Number(e.target.dataset.number);
+        i <= Number(e.target.dataset.number) + (chosenLength - 1) * 10;
+        i += 10
+      ) {
+        if (e.target.parentNode.childNodes[i]) {
+          e.target.parentNode.childNodes[i].dataset.over = "";
+        }
       }
 
+      //+logic when drop => run the functions below
+      let playerChoiceLine = e.target.attributes[1].value;
+      let playerChoiceColumn = e.target.attributes[0].value;
+
+      if (/*e.target.attributes[1].value &&*/ position === "horizontal") {
+        players.playerShipPlacementH(
+          Number(playerChoiceLine),
+          Number(playerChoiceColumn),
+          Number(chosenLength)
+        );
+      } else {
+        players.playerShipPlacementV(
+          Number(playerChoiceLine),
+          Number(playerChoiceColumn),
+          Number(chosenLength)
+        );
+      }
+
+      gameboardUpdate(players);
+      console.log(
+        players.getPlayers()[0].getShips().length +
+          "  AI=" +
+          players.getPlayers()[1].getShips().length
+      );
+    });
+    //END OF DRAG AND DROP-----------------------------------------------------------------------------------------------------------------------
+    //Drag and Drop used instead of .addEventListener("click")
+
+    controllers.addEventListener("click", (e) => {
       if (e.target.localName === "button") {
-        position = e.target.dataset.position;
+        changeDisplayChoices(e.target.dataset.position);
       }
     });
 
     //Player grid (to place ships)
-    gridDiv.addEventListener("click", (e) => {
+    /*gridDiv.addEventListener("click", (e) => {
       let playerChoiceLine = e.target.dataset.line;
       let playerChoiceColumn = e.target.dataset.column;
 
@@ -78,19 +167,8 @@ function play() {
           "  AI=" +
           players.getPlayers()[1].getShips().length
       );
-    });
+    });*/
 
-    /*
-          if (e.target.dataset.line) {
-        playerChoiceLine = Number(e.target.dataset.line);
-        playerChoiceColumn = Number(e.target.dataset.column);
-        players.playerShipsHorizontal(
-          playerChoiceLine,
-          playerChoiceColumn,
-          chosenLength
-        );
-        gameboardUpdate(players);
-      } */
     //Computer grid (to attack)
     const controller = new AbortController();
     gridDiv2.addEventListener(

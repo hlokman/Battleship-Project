@@ -35,8 +35,13 @@ function render() {
       square.setAttribute("data-column", `${column}`);
       square.setAttribute("data-line", `${line}`);
       square.setAttribute("id", "square");
+
       grid1.appendChild(square);
     }
+  }
+  const square = document.querySelectorAll("#square");
+  for (let i = 0; i < 100; i++) {
+    square[i].setAttribute("data-number", `${i}`);
   }
 
   const separation = document.createElement("div");
@@ -89,6 +94,46 @@ function render() {
   buttonV.setAttribute("data-position", "vertical");
   buttonV.textContent = "Vertical";
   bottom.appendChild(buttonV);
+
+  const choices = document.createElement("div");
+  choices.setAttribute("id", "choices");
+  choices.setAttribute("class", "horizontal");
+  controllers.appendChild(choices);
+  for (let i = 1; i <= 5; i++) {
+    const square = document.createElement("div");
+    square.setAttribute("data-shipLength", `${i}`);
+    square.setAttribute("id", "ship");
+    square.setAttribute("class", "horizontal");
+    square.setAttribute("draggable", "true");
+    choices.appendChild(square);
+    for (let j = 1; j <= i; j++) {
+      const ship = document.createElement("div");
+      ship.setAttribute("id", `squareShip`);
+      square.appendChild(ship);
+      square.style.gridTemplateColumns = `repeat(${i}, 35px )`;
+    }
+  }
 }
 
-export { render };
+function changeDisplayChoices(target) {
+  const choices = document.querySelector("#choices");
+  choices.className = "";
+  choices.className = target;
+
+  const ships = document.querySelectorAll("#ship");
+  if (target === "vertical") {
+    ships.forEach((item, index) => {
+      item.className = target;
+      item.style.gridTemplateColumns = "";
+      item.style.gridTemplateRows = `repeat(${index + 1}, 35px )`;
+    });
+  } else {
+    ships.forEach((item, index) => {
+      item.className = target;
+      item.style.gridTemplateRows = "";
+      item.style.gridTemplateColumns = `repeat(${index + 1}, 35px )`;
+    });
+  }
+}
+
+export { render, changeDisplayChoices };
