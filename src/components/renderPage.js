@@ -9,6 +9,10 @@ function render() {
   const alert = document.createElement("div");
   alert.setAttribute("id", "alert");
   header.appendChild(alert);
+  const remaining = document.createElement("div");
+  remaining.setAttribute("id", "remaining");
+  remaining.textContent = "Remaining ships: 10";
+  header.append(remaining);
 
   const flow = document.createElement("div");
   flow.setAttribute("id", "flow");
@@ -157,6 +161,8 @@ function changeDisplayChoices(target) {
 function startTriggered() {
   const controllers = document.querySelector("#controllers");
   controllers.style.display = "none";
+  const remaining = document.querySelector("#remaining");
+  remaining.style.display = "none";
 
   /*const gridDiv2 = document.querySelector("#gridDiv2");
   gridDiv2.classList.add("playable");*/

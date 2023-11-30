@@ -114,6 +114,11 @@ function erasedAlert() {
   alert.textContent = "";
 }
 
+function renderRemaining(number) {
+  const remaining = document.querySelector("#remaining");
+  remaining.textContent = `Remaining ships: ${number}`;
+}
+
 function messagesPlaceShips() {
   const flow = document.querySelector("#flow");
 }
@@ -145,6 +150,7 @@ export {
   noShipPlacedMessage,
   startMessage,
   erasedAlert,
+  renderRemaining,
   /*shipHitMessage,
   nothingHitMessage,*/
 };

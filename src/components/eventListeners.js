@@ -7,6 +7,7 @@ import {
   noShipPlacedMessage,
   startMessage,
   erasedAlert,
+  renderRemaining,
 } from "./renderBoardAndMessages";
 import { Players, chosenLength } from "./player";
 import { changeDisplayChoices, startTriggered } from "./renderPage";
@@ -141,9 +142,11 @@ function play() {
         }
 
         if (players.getPlayers()[0].getShips().length === 10) {
+          startMessage();
           startTriggered();
         }
         gameboardUpdate(players);
+        renderRemaining(10 - players.getPlayers()[0].getShips().length);
       }
 
       console.log(

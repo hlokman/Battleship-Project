@@ -31,7 +31,7 @@ body {
   position: absolute;
   height: 20px;
   width: 100%;
-  top: 61px;
+  top: 57px;
   display: flex;
   justify-self: center;
   justify-content: center;
@@ -58,6 +58,17 @@ body {
   background-color: wheat;
   color: solid black;
   margin-bottom: 20px;
+  position: relative;
+}
+#remaining {
+  position: absolute;
+  /*border: 2px solid red;*/
+  width: 100%;
+  height: 20px;
+  top: 115px;
+  display: flex;
+  justify-content: center;
+  color: wheat;
 }
 button {
   font-family: "Arcade";
@@ -70,6 +81,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 10px;
+  margin-top: 20px;
 }
 #buttons > button {
   border: 2px solid wheat;
