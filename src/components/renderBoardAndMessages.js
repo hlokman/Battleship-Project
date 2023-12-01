@@ -68,6 +68,12 @@ function gameboardUpdate(players) {
 
     messages(check);
     messagesPositions(checkPositions);
+
+    if (players.getPlayerUnderAttack().name === "Computer") {
+      playerTurnMessage();
+    } else {
+      computerTurnMessage();
+    }
   }
 
   console.log(players.getPlayers()[0].getBoard());
@@ -119,18 +125,32 @@ function renderRemaining(number) {
   remaining.textContent = `Remaining ships: ${number}`;
 }
 
+function computerTurnMessage() {
+  const turns = document.querySelector("#turns");
+  turns.textContent = "Computer's Turn";
+}
+
+function playerTurnMessage() {
+  const turns = document.querySelector("#turns");
+  turns.textContent = "Player's Turn";
+}
+
 function messagesPlaceShips() {
   const flow = document.querySelector("#flow");
 }
 
 function playerWins() {
   const flow = document.querySelector("#flow");
+  const turns = document.querySelector("#turns");
   flow.textContent = "Congratulations you won!";
+  turns.textContent = "";
 }
 
 function computerWins() {
   const flow = document.querySelector("#flow");
+  const turns = document.querySelector("#turns");
   flow.textContent = "Oh.. you lost..";
+  turns.textContent = "";
 }
 
 /*function nothingHitMessage() {
@@ -148,6 +168,8 @@ export {
   playerWins,
   computerWins,
   noShipPlacedMessage,
+  computerTurnMessage,
+  playerTurnMessage,
   startMessage,
   erasedAlert,
   renderRemaining,

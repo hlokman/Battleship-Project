@@ -8,6 +8,8 @@ import {
   startMessage,
   erasedAlert,
   renderRemaining,
+  computerTurnMessage,
+  playerTurnMessage,
 } from "./renderBoardAndMessages";
 import { Players, chosenLength } from "./player";
 import { changeDisplayChoices, startTriggered } from "./renderPage";
@@ -161,7 +163,7 @@ function play() {
 
     start.addEventListener("click", (e) => {
       if (players.getPlayers()[0].getShips().length !== 0) {
-        startMessage();
+        startMessage(); //!!!!!!!!!!!!!!!
         startTriggered();
       } else if (players.getPlayers()[0].getShips().length === 0) {
         noShipPlacedMessage();
@@ -215,19 +217,34 @@ function play() {
         //In case the computer grid is clicked before any ship is placed
         if (players.getPlayers()[0].getShips().length === 0) {
           noShipPlacedMessage();
-        } else {
-          //if at least 1 ship placed => start triggered when computer grid is clicked
-          if (e.target.dataset.line) {
+        } else if (players.getPlayerUnderAttack().name === "Computer") {
+          //Avoid to trigger anything if it is computer turn + if at least 1 ship placed => start triggered when computer grid is clicked
+          if (e.target.dataset.line && gameLoop() !== true) {
             playerChoiceLine = e.target.dataset.line;
             playerChoiceColumn = e.target.dataset.column;
-            players.playerTurn(playerChoiceLine, playerChoiceColumn);
+            let result = players.playerTurn(
+              playerChoiceLine,
+              playerChoiceColumn
+            );
+            players.changePlayer(); //In order to avoid to trigger anything if it is computer turn
             gameboardUpdate(players);
+            if ((result || result === null) && gameLoop() !== true) {
+              setTimeout(() => {
+                players.computerTurn();
+                players.changePlayer(); //"force" to wait the setTimeOut => allow to click the computer's grid again
+                gameboardUpdate(players);
+                gameLoop(); //To check after the setTimeout is done
+              }, 1200);
+            } else {
+              players.changePlayer(); //if player clicks spot already hit => allow to click the computer's grid again
+              gameboardUpdate(players);
+            }
             startTriggered();
             erasedAlert();
           }
         }
 
-        gameLoop();
+        //gameLoop();
 
         if (gameLoop() === true) {
           controller.abort();
@@ -238,6 +255,12 @@ function play() {
   })();
 
   function gameLoop() {
+    /*if (players.getPlayerUnderAttack().name === "Player") {
+      playerTurnMessage();
+    } else {
+      computerTurnMessage();
+    }*/
+
     if (
       players.getPlayers()[0].allShipsSunk() &&
       players.getPlayers()[0].getShips().length !== 0

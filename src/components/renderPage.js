@@ -9,10 +9,21 @@ function render() {
   const alert = document.createElement("div");
   alert.setAttribute("id", "alert");
   header.appendChild(alert);
+  //
   const remaining = document.createElement("div");
   remaining.setAttribute("id", "remaining");
   remaining.textContent = "Remaining ships: 10";
   header.append(remaining);
+  //
+  const lastResult = document.createElement("div");
+  lastResult.setAttribute("id", "lastResult");
+  lastResult.textContent = "your (last) result:";
+  header.appendChild(lastResult);
+  //
+  const turns = document.createElement("div");
+  turns.setAttribute("id", "turns");
+  turns.textContent = "turns test";
+  header.appendChild(turns);
 
   const flow = document.createElement("div");
   flow.setAttribute("id", "flow");
@@ -163,6 +174,10 @@ function startTriggered() {
   controllers.style.display = "none";
   const remaining = document.querySelector("#remaining");
   remaining.style.display = "none";
+  const turns = document.querySelector("#turns");
+  turns.style.display = "flex";
+  const lastResult = document.querySelector("#lastResult");
+  lastResult.style.display = "flex";
 
   /*const gridDiv2 = document.querySelector("#gridDiv2");
   gridDiv2.classList.add("playable");*/

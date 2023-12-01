@@ -20,28 +20,23 @@ const Players = (playerOne = "Player", playerTwo = "Computer") => {
 
   //PLAYER AND COMPUTER ATTACKING LOGICS
   function playerTurn(line, column) {
-    let result = playerUnderAttack.receiveAttack(line, column);
+    check = players[1].receiveAttack(line, column);
+    return check;
+    //console.log("receive==  " + players[1].receiveAttack(line, column));
+    /*let result = playerUnderAttack.receiveAttack(line, column);
     changePlayer();
     check = result;
 
     if (result || result === null) {
       computerTurn();
-      changePlayer();
-      console.log("check=========  " + check);
-      //gameboardUpdate(); to erase for loose coupling
-    } else {
-      changePlayer();
-      console.log("check=========  " + check);
-      //gameboardUpdate();
     }
-    //console.log(players[1].allShipsSunk());
+    changePlayer();*/
   }
 
   function computerTurn() {
-    //To modify after to put setTimeout logic !!!
     let attackResult;
     do {
-      attackResult = playerUnderAttack.receiveAttack(
+      attackResult = players[0].receiveAttack(
         Math.floor(Math.random() * 10),
         Math.floor(Math.random() * 10),
         false
@@ -103,6 +98,7 @@ const Players = (playerOne = "Player", playerTwo = "Computer") => {
     changePlayer,
     getPlayerUnderAttack,
     playerTurn,
+    computerTurn,
     playerShipPlacementH,
     playerShipPlacementV,
   };
