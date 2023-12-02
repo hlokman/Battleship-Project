@@ -285,7 +285,7 @@ button {
 }
 
 /*WHEN THE WINDOW IS RESIZED*/
-@media only screen and (min-width: 400px) and (max-width: 1210px) {
+@media only screen and /*(min-width: 400px) and*/ (max-width: 1210px) {
   #content {
     display: flex;
     justify-content: center;
