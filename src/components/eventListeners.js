@@ -1,5 +1,3 @@
-//import { /*gameLoop,*/ players } from "./gameFlow";
-
 import {
   gameboardUpdate,
   playerWins,
@@ -8,19 +6,15 @@ import {
   startMessage,
   erasedAlert,
   renderRemaining,
-  computerTurnMessage,
-  playerTurnMessage,
 } from "./renderBoardAndMessages";
-import { Players, chosenLength } from "./player";
+import { Players } from "./player";
 import { changeDisplayChoices, startTriggered } from "./renderPage";
-//import { startMessage,   noShipPlacedMessage, } from "./renderBoardAndMessages";
 
 function play() {
   const players = Players();
 
   gameboardUpdate(players);
   (function displayController() {
-    const gridDiv = document.querySelector("#gridDiv");
     const gridDiv2 = document.querySelector("#gridDiv2");
     const playerGrid = document.querySelector("#grid1");
     const controllers = document.querySelector("#controllers");
@@ -32,7 +26,6 @@ function play() {
     let maxPlacement = 0;
 
     //DRAG AND DROP--------------------------------------------------------------------------------------------------------------------------------
-
     ships.addEventListener("dragstart", (e) => {
       //take the values of the dragged element
       chosenLength = Number(e.target.attributes[0].value);
@@ -150,12 +143,6 @@ function play() {
         gameboardUpdate(players);
         renderRemaining(10 - players.getPlayers()[0].getShips().length);
       }
-
-      console.log(
-        players.getPlayers()[0].getShips().length +
-          "  AI=" +
-          players.getPlayers()[1].getShips().length
-      );
     });
 
     //END OF DRAG AND DROP-----------------------------------------------------------------------------------------------------------------------
@@ -163,7 +150,7 @@ function play() {
 
     start.addEventListener("click", (e) => {
       if (players.getPlayers()[0].getShips().length !== 0) {
-        startMessage(); //!!!!!!!!!!!!!!!
+        startMessage();
         startTriggered();
       } else if (players.getPlayers()[0].getShips().length === 0) {
         noShipPlacedMessage();
@@ -178,33 +165,6 @@ function play() {
         changeDisplayChoices(e.target.dataset.position);
       }
     });
-
-    //Player grid (to place ships)
-    /*gridDiv.addEventListener("click", (e) => {
-      let playerChoiceLine = e.target.dataset.line;
-      let playerChoiceColumn = e.target.dataset.column;
-
-      if (playerChoiceLine && position === "horizontal") {
-        players.playerShipPlacementH(
-          Number(playerChoiceLine),
-          Number(playerChoiceColumn),
-          Number(chosenLength)
-        );
-      } else if (playerChoiceLine && position === "vertical") {
-        players.playerShipPlacementV(
-          Number(playerChoiceLine),
-          Number(playerChoiceColumn),
-          Number(chosenLength)
-        );
-      }
-
-      gameboardUpdate(players);
-      console.log(
-        players.getPlayers()[0].getShips().length +
-          "  AI=" +
-          players.getPlayers()[1].getShips().length
-      );
-    });*/
 
     //Computer grid (to attack)
     const controller = new AbortController();
@@ -244,8 +204,6 @@ function play() {
           }
         }
 
-        //gameLoop();
-
         if (gameLoop() === true) {
           controller.abort();
         }
@@ -255,12 +213,6 @@ function play() {
   })();
 
   function gameLoop() {
-    /*if (players.getPlayerUnderAttack().name === "Player") {
-      playerTurnMessage();
-    } else {
-      computerTurnMessage();
-    }*/
-
     if (
       players.getPlayers()[0].allShipsSunk() &&
       players.getPlayers()[0].getShips().length !== 0
@@ -274,93 +226,8 @@ function play() {
       playerWins();
       return true;
     }
-
-    //const getController = () => controller;
-
     return {};
   }
 }
 
-export { /*displayController,*/ play /*, players*/ };
-
-/*
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-LOGIQUE A AJOUTER DANS PLAYER??????
-  
-  let computerChoiceLine;
-let computerChoiceColumn;
-
-gridDiv.addEventListener("click", (e) => {
-
-});
-
-gridDiv2.addEventListener("click", (e) => {
-  let playerChoiceLine;
-  let playerChoiceColumn;
-
-  if (e.target.dataset.line) {
-    playerChoiceLine = e.target.dataset.line;
-    playerChoiceColumn = e.target.dataset.column;
-  }
-  playerTurn(playerChoiceLine, playerChoiceColumn);
-
-  gameLoop(); //!
-});
-
-//console.log(players.getPlayerUnderAttack().name);
-
-
-//---------------------------------------------
-function playerTurn(line, column) {
-  let result = players.getPlayerUnderAttack().receiveAttack(line, column);
-  players.changePlayer();
-  if (result) {
-    computerTurn();
-    players.changePlayer();
-    gameboardUpdate();
-  } else {
-    players.changePlayer();
-    gameboardUpdate();
-  }
-
-  line = undefined;
-  column = undefined;
-  console.log(players.getPlayers()[1].allShipsSunk());
-}
-
-function computerTurn() {
-  let attackResult;
-  do {
-    attackResult = players
-      .getPlayerUnderAttack()
-      .receiveAttack(
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-        false
-      );
-  } while (attackResult === false);
-}
-
-  
-  
-  
-  
-  */
+export { play };

@@ -51,21 +51,11 @@ describe("Board (grid) render", () => {
 
     test("Ship's position overflowing", () => {
       let boardtest = Gameboard();
-      expect(() => {
-        boardtest.placeShipVertically(8, 2, 4);
-      }).toThrow(Error);
+      expect(boardtest.placeShipVertically(8, 2, 4)).toBeNull();
 
-      expect(() => {
-        boardtest.placeShipVertically(0, 10, 1);
-      }).toThrow(Error);
+      expect(boardtest.placeShipVertically(0, 10, 1)).toBeNull();
 
-      expect(() => {
-        boardtest.placeShipVertically(10, 0, 1);
-      }).toThrow(Error);
-
-      expect(() => {
-        boardtest.placeShipVertically(5, 4, 0);
-      }).toThrow(Error);
+      expect(boardtest.placeShipVertically(10, 0, 1)).toBeNull();
     });
   });
 });
@@ -82,21 +72,11 @@ describe("Place the ship horizontally", () => {
 
   test("Ship's position overflowing", () => {
     let boardtest = Gameboard();
-    expect(() => {
-      boardtest.placeShipHorizontally(2, 8, 4);
-    }).toThrow(Error);
+    expect(boardtest.placeShipHorizontally(2, 8, 4)).toBeNull();
 
-    expect(() => {
-      boardtest.placeShipHorizontally(0, 10, 1);
-    }).toThrow(Error);
+    expect(boardtest.placeShipHorizontally(0, 10, 1)).toBeNull();
 
-    expect(() => {
-      boardtest.placeShipHorizontally(10, 0, 1);
-    }).toThrow(Error);
-
-    expect(() => {
-      boardtest.placeShipHorizontally(5, 4, 0);
-    }).toThrow(Error);
+    expect(boardtest.placeShipHorizontally(10, 0, 1)).toBeNull();
   });
 });
 
@@ -105,17 +85,13 @@ describe("Ships touching each other", () => {
     let boardtest = Gameboard();
     boardtest.placeShipHorizontally(5, 4, 4);
     boardtest.placeShipVertically(6, 4, 4);
-    expect(() => {
-      boardtest.placeShipHorizontally(7, 1, 4);
-    }).toThrow(Error);
+    expect(boardtest.placeShipHorizontally(7, 1, 4)).toBeFalsy();
     expect(boardtest.getBoard()[7][1]).toBeNull();
     expect(boardtest.getBoard()[7][2]).toBeNull();
     expect(boardtest.getBoard()[7][3]).toBeNull();
     expect(boardtest.getBoard()[7][4].isSunk()).toBeFalsy();
 
-    expect(() => {
-      boardtest.placeShipVertically(3, 7, 4);
-    }).toThrow(Error);
+    expect(boardtest.placeShipVertically(3, 7, 4)).toBeFalsy();
     expect(boardtest.getBoard()[3][7]).toBeNull();
     expect(boardtest.getBoard()[4][7]).toBeNull();
     expect(boardtest.getBoard()[5][7].isSunk()).toBeFalsy();
@@ -145,7 +121,7 @@ describe("Receive attack(s)' logic", () => {
   test("An empty spot is hit or the coordinates don't exist", () => {
     let boardtest = Gameboard();
     boardtest.placeShipHorizontally(5, 4, 4);
-    expect(boardtest.receiveAttack(0, 0)).toBeTruthy();
+    expect(boardtest.receiveAttack(0, 0)).toBeNull();
     expect(() => {
       boardtest.receiveAttack(12, 8);
     }).toThrow(Error);

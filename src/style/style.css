@@ -21,9 +21,7 @@ body {
 #header {
   display: grid;
   grid-template-rows: 70px 100px;
-  /*justify-content: center;*/
   align-items: center;
-  /*border: 2px solid green;*/
   background-color: rgb(140, 228, 240);
   position: relative;
 }
@@ -40,7 +38,6 @@ body {
 }
 #remaining {
   position: absolute;
-  /*border: 2px solid red;*/
   width: 100%;
   height: 20px;
   top: 115px;
@@ -50,7 +47,6 @@ body {
 }
 #turns {
   position: absolute;
-  /*border: 2px solid red;*/
   width: 100%;
   height: 19px;
   top: 118px;
@@ -89,8 +85,6 @@ body {
   height: 30px;
   width: 100%;
   font-size: 18px;
-  /*border: 2px solid black;*/
-  /*background-color: wheat;*/
   background-color: rgb(192, 172, 0);
   color: white;
   margin-bottom: 20px;
@@ -114,29 +108,20 @@ button {
 }
 
 #content {
-  /*border: 2px solid purple;*/
   display: flex;
   justify-content: center;
-  /*align-items: center;*/
   background-color: rgb(140, 228, 240);
 }
 
 #grids {
-  /*flex-wrap: wrap;*/
   width: 80%;
   min-width: 755px;
   height: 90%;
   min-height: 550px;
-  /*border: 2px solid red;*/
   display: grid;
   grid-template-rows: 500px 300px;
 }
 #grids.rearranged {
-  /*flex-wrap: wrap;*/
-  /*width: 80%;
-  min-width: 755px;
-  height: 90%;
-  border: 2px solid red;*/
   min-height: none;
   grid-template-rows: 510px;
 }
@@ -147,12 +132,9 @@ button {
   height: 100%;
 }
 #gridDiv {
-  /*flex: 1 1 550px;*/
   width: 450px;
   height: 450px;
   justify-self: end;
-  /*display: flex;*/
-  /*border: 2px solid greenyellow;*/
   display: grid;
   grid-template-rows: 25px 1fr;
 }
@@ -177,16 +159,12 @@ button {
   margin: 10px;
   padding-bottom: 130px;
   font-size: 20px;
-  /*border: 2px solid orange;*/
 }
 
 #gridDiv2 {
-  /*flex: 1 1 550px;*/
   width: 450px;
   height: 450px;
   justify-self: start;
-  /*display: flex;*/
-  /*border: 2px solid blue;*/
   display: grid;
   grid-template-rows: 25px 1fr;
 }
@@ -203,7 +181,7 @@ button {
 }
 
 #square {
-  outline: 2px solid black;
+  outline: 2px solid navy;
   background-color: white;
   display: flex;
   justify-content: center;
@@ -215,9 +193,6 @@ button {
   background-color: yellow;
 }
 #square.hit {
-  /*display: flex;
-  justify-content: center;
-  align-items: center;*/
   align-self: center;
   content: "";
   background-image: url(./mine.svg);
@@ -321,16 +296,9 @@ button {
     align-items: center;
     width: 80%;
     height: 1400px;
-    /*border: 2px solid red;*/
     grid-template-rows: 1100px 1fr;
-    /*margin-top: -70px;*/
   }
   #grids.rearranged {
-    /*flex-wrap: wrap;*/
-    /*width: 80%;
-    min-width: 755px;
-    height: 90%;
-    border: 2px solid red;*/
     height: 1150px;
     grid-template-rows: 510px;
   }
@@ -346,7 +314,6 @@ button {
     grid-template-rows: 40px 1fr;
     align-self: end;
     justify-self: center;
-    /*border: 2px solid purple;*/
   }
 
   #grid1 {
@@ -362,7 +329,6 @@ button {
     height: 40px;
     width: 40px;
     padding-bottom: 0px;
-    /*border: 2px solid orange;*/
   }
 
   #gridDiv2 {
@@ -371,7 +337,6 @@ button {
     display: grid;
     grid-template-rows: 40px 1fr;
     justify-self: center;
-    /*border: 2px solid blue;*/
   }
 
   #grid2 {

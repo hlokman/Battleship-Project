@@ -105,16 +105,6 @@ function render() {
   const controllers = document.createElement("div");
   controllers.setAttribute("id", "controllers");
   grids.appendChild(controllers);
-  /*const top = document.createElement("div");
-  top.setAttribute("id", "topController");
-  controllers.appendChild(top);
-  for (let i = 1; i <= 10; i++) {
-    const length = document.createElement("div");
-    length.setAttribute("data-length", `${i}`);
-    length.setAttribute("id", "length");
-    length.textContent = `${i}`;
-    top.appendChild(length);
-  }*/
 
   const bottom = document.createElement("div");
   bottom.setAttribute("id", "bottomController");
@@ -179,8 +169,6 @@ function startTriggered() {
   const lastResult = document.querySelector("#lastResult");
   lastResult.style.display = "flex";
 
-  /*const gridDiv2 = document.querySelector("#gridDiv2");
-  gridDiv2.classList.add("playable");*/
   const grids = document.querySelector("#grids");
   grids.classList.add("rearranged");
   const start = document.querySelector("#startButton");
