@@ -24,12 +24,12 @@ body {
   /*justify-content: center;*/
   align-items: center;
   /*border: 2px solid green;*/
-  background-color: rgb(0, 0, 161);
+  background-color: rgb(140, 228, 240);
   position: relative;
 }
 #lastResult {
   position: absolute;
-  color: yellow;
+  color: grey;
   height: 20px;
   width: 100%;
   top: 62px;
@@ -46,7 +46,7 @@ body {
   top: 115px;
   display: flex;
   justify-content: center;
-  color: yellow;
+  color: grey;
 }
 #turns {
   position: absolute;
@@ -57,12 +57,14 @@ body {
   font-size: 20px;
   display: none;
   justify-content: center;
-  color: yellow;
+  color: grey;
 }
 #title {
   align-self: center;
   justify-self: center;
-  color: yellow;
+  color: rgb(192, 172, 0);
+  margin-top: 20px;
+  font-size: 18px;
 }
 #alert {
   position: absolute;
@@ -89,8 +91,8 @@ body {
   font-size: 18px;
   /*border: 2px solid black;*/
   /*background-color: wheat;*/
-  background-color: yellow;
-  color: solid black;
+  background-color: rgb(192, 172, 0);
+  color: white;
   margin-bottom: 20px;
 }
 button {
@@ -107,8 +109,8 @@ button {
   margin-top: 20px;
 }
 #buttons > button {
-  border: 2px solid yellow;
-  color: yellow;
+  border: 2px solid grey;
+  color: grey;
 }
 
 #content {
@@ -116,6 +118,7 @@ button {
   display: flex;
   justify-content: center;
   /*align-items: center;*/
+  background-color: rgb(140, 228, 240);
 }
 
 #grids {
@@ -124,7 +127,7 @@ button {
   min-width: 755px;
   height: 90%;
   min-height: 550px;
-  border: 2px solid red;
+  /*border: 2px solid red;*/
   display: grid;
   grid-template-rows: 500px 300px;
 }
@@ -208,6 +211,9 @@ button {
   min-height: 35px;
   min-width: 35px;
 }
+#square:hover {
+  background-color: yellow;
+}
 #square.hit {
   /*display: flex;
   justify-content: center;
@@ -222,6 +228,7 @@ button {
   width: 100%;
   border: none;
   color: inherit;
+  background-color: rgb(200, 0, 0);
 }
 #square.fail {
   align-self: center;
@@ -234,6 +241,7 @@ button {
   width: 100%;
   border: none;
   color: inherit;
+  background-color: rgb(0, 208, 208);
 }
 #square[data-over="yes"] {
   background-color: yellow;
@@ -241,16 +249,12 @@ button {
 
 #controllers {
   display: grid;
-  height: 330px;
+  height: 150px;
   grid-template-rows: 50px 100px;
 }
-#topController {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-}
-#topController > #length {
-  align-self: center;
-  justify-self: center;
+#controllers button {
+  border: 2px solid grey;
+  color: grey;
 }
 #bottomController {
   display: flex;
@@ -260,24 +264,44 @@ button {
   gap: 10px;
 }
 #choices.horizontal {
-  display: grid;
+  display: inline-grid;
   grid-template-columns: repeat(4, 140px);
   grid-template-rows: 1fr 1fr;
   gap: 5px;
   justify-self: center;
+  grid-template-areas:
+    "ship4 ship1 ship2 ship3"
+    ". ship5 . .";
 }
 #choices.vertical {
-  display: grid;
+  display: inline-grid;
   grid-template-columns: repeat(5, 40px);
   grid-template-rows: 1fr;
   gap: 100px;
   justify-self: center;
+  grid-template-areas: "ship3 ship2 ship1 ship4 ship5";
 }
 #choices > #ship {
   display: grid;
   justify-self: center;
   align-self: center;
 }
+#ship[data-shiplength="5"] {
+  grid-area: ship5;
+}
+#ship[data-shiplength="4"] {
+  grid-area: ship4;
+}
+#ship[data-shiplength="3"] {
+  grid-area: ship3;
+}
+#ship[data-shiplength="2"] {
+  grid-area: ship2;
+}
+#ship[data-shiplength="1"] {
+  grid-area: ship1;
+}
+
 #squareShip {
   outline: 2px solid black;
   background-color: rgb(139, 139, 139);
@@ -288,7 +312,6 @@ button {
 /*WHEN THE WINDOW IS RESIZED*/
 @media only screen and (min-width: 400px) and (max-width: 1210px) {
   #content {
-    border: 2px solid purple;
     display: flex;
     justify-content: center;
   }
@@ -297,8 +320,8 @@ button {
     justify-content: center;
     align-items: center;
     width: 80%;
-    height: 1350px;
-    border: 2px solid red;
+    height: 1400px;
+    /*border: 2px solid red;*/
     grid-template-rows: 1100px 1fr;
     /*margin-top: -70px;*/
   }
@@ -354,6 +377,10 @@ button {
   #grid2 {
     display: grid;
     background-color: rgb(255, 255, 255);
+  }
+
+  #controllers {
+    height: 280px;
   }
 }
 
