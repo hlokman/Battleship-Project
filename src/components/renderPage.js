@@ -164,6 +164,8 @@ function startTriggered() {
   controllers.style.display = "none";
   const remaining = document.querySelector("#remaining");
   remaining.style.display = "none";
+  const alert = document.querySelector("#alert");
+  alert.style.display = "none";
   const turns = document.querySelector("#turns");
   turns.style.display = "flex";
   const lastResult = document.querySelector("#lastResult");
