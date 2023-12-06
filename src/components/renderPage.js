@@ -4,110 +4,110 @@ function render() {
 
   //Players and flow part
   const buttonsAndFlow = document.createElement("div");
-  buttonsAndFlow.setAttribute("id", "buttonsAndFlow");
+  buttonsAndFlow.setAttribute("class", "buttonsAndFlow");
   header.appendChild(buttonsAndFlow);
   const alert = document.createElement("div");
-  alert.setAttribute("id", "alert");
+  alert.setAttribute("class", "alert");
   header.appendChild(alert);
   //
   const remaining = document.createElement("div");
-  remaining.setAttribute("id", "remaining");
+  remaining.setAttribute("class", "remaining");
   remaining.textContent = "Remaining ships: 10";
   header.append(remaining);
   //
   const lastResult = document.createElement("div");
-  lastResult.setAttribute("id", "lastResult");
+  lastResult.setAttribute("class", "lastResult");
   lastResult.textContent = "your (last) result:";
   header.appendChild(lastResult);
   //
   const turns = document.createElement("div");
-  turns.setAttribute("id", "turns");
+  turns.setAttribute("class", "turns");
   turns.textContent = "turns test";
   header.appendChild(turns);
 
   const flow = document.createElement("div");
-  flow.setAttribute("id", "flow");
+  flow.setAttribute("class", "flow");
   flow.textContent = "Place your ships (Max: 10 ships)";
   buttonsAndFlow.appendChild(flow);
 
   const buttons = document.createElement("div");
-  buttons.setAttribute("id", "buttons");
+  buttons.setAttribute("class", "buttons");
   buttonsAndFlow.appendChild(buttons);
   const start = document.createElement("button");
-  start.setAttribute("id", "startButton");
+  start.setAttribute("class", "startButton");
   start.textContent = "Start";
   buttons.appendChild(start);
   const restart = document.createElement("button");
-  restart.setAttribute("id", "restartButton");
+  restart.setAttribute("class", "restartButton");
   restart.textContent = "Restart";
   buttons.appendChild(restart);
 
   //Grids part
   const grids = document.createElement("div");
-  grids.setAttribute("id", "grids");
+  grids.setAttribute("class", "grids");
   content.appendChild(grids);
 
   const displays = document.createElement("div");
-  displays.setAttribute("id", "displays");
+  displays.setAttribute("class", "displays");
   grids.appendChild(displays);
 
   const gridDiv = document.createElement("div");
-  gridDiv.setAttribute("id", "gridDiv");
+  gridDiv.setAttribute("class", "gridDiv");
   displays.appendChild(gridDiv);
   const playerOne = document.createElement("div");
-  playerOne.setAttribute("id", "playerOne");
+  playerOne.setAttribute("class", "playerOne");
   playerOne.textContent = "player";
   gridDiv.appendChild(playerOne);
   const grid1 = document.createElement("div");
-  grid1.setAttribute("id", "grid1");
+  grid1.setAttribute("class", "grid1");
   gridDiv.appendChild(grid1);
   for (let line = 0; line < 10; line++) {
     for (let column = 0; column < 10; column++) {
       const square = document.createElement("span");
       square.setAttribute("data-column", `${column}`);
       square.setAttribute("data-line", `${line}`);
-      square.setAttribute("id", "square");
+      square.setAttribute("class", "square");
 
       grid1.appendChild(square);
     }
   }
-  const square = document.querySelectorAll("#square");
+  const square = document.querySelectorAll(".square");
   for (let i = 0; i < 100; i++) {
     square[i].setAttribute("data-number", `${i}`);
   }
 
   const separation = document.createElement("div");
-  separation.setAttribute("id", "separation");
+  separation.setAttribute("class", "separation");
   displays.appendChild(separation);
   separation.innerHTML = "<h1>VS</h1>";
 
   const gridDiv2 = document.createElement("div");
-  gridDiv2.setAttribute("id", "gridDiv2");
+  gridDiv2.setAttribute("class", "gridDiv2");
   displays.appendChild(gridDiv2);
   const playerTwo = document.createElement("div");
-  playerTwo.setAttribute("id", "playerTwo");
+  playerTwo.setAttribute("class", "playerTwo");
   playerTwo.textContent = "computer";
   gridDiv2.appendChild(playerTwo);
   const grid2 = document.createElement("div");
-  grid2.setAttribute("id", "grid2");
+  grid2.setAttribute("class", "grid2");
   gridDiv2.appendChild(grid2);
   for (let line = 0; line < 10; line++) {
     for (let column = 0; column < 10; column++) {
       const square = document.createElement("span");
       square.setAttribute("data-column", `${column}`);
       square.setAttribute("data-line", `${line}`);
-      square.setAttribute("id", "square");
+      square.setAttribute("class", "square");
       grid2.appendChild(square);
     }
   }
 
   //Controller part
   const controllers = document.createElement("div");
-  controllers.setAttribute("id", "controllers");
+  controllers.setAttribute("class", "controllers");
   grids.appendChild(controllers);
 
   const bottom = document.createElement("div");
-  bottom.setAttribute("id", "bottomController");
+  bottom.setAttribute("class", "bottomController");
   controllers.appendChild(bottom);
   const buttonH = document.createElement("button");
   buttonH.setAttribute("data-position", "horizontal");
@@ -131,7 +131,7 @@ function render() {
     choices.appendChild(square);
     for (let j = 1; j <= i; j++) {
       const ship = document.createElement("div");
-      ship.setAttribute("id", `squareShip`);
+      ship.setAttribute("class", `squareShip`);
       square.appendChild(ship);
       square.style.gridTemplateColumns = `repeat(${i}, 40px )`;
     }
@@ -160,20 +160,20 @@ function changeDisplayChoices(target) {
 }
 
 function startTriggered() {
-  const controllers = document.querySelector("#controllers");
+  const controllers = document.querySelector(".controllers");
   controllers.style.display = "none";
-  const remaining = document.querySelector("#remaining");
+  const remaining = document.querySelector(".remaining");
   remaining.style.display = "none";
-  const alert = document.querySelector("#alert");
+  const alert = document.querySelector(".alert");
   alert.style.display = "none";
-  const turns = document.querySelector("#turns");
+  const turns = document.querySelector(".turns");
   turns.style.display = "flex";
-  const lastResult = document.querySelector("#lastResult");
+  const lastResult = document.querySelector(".lastResult");
   lastResult.style.display = "flex";
 
-  const grids = document.querySelector("#grids");
+  const grids = document.querySelector(".grids");
   grids.classList.add("rearranged");
-  const start = document.querySelector("#startButton");
+  const start = document.querySelector(".startButton");
   start.style.display = "none";
 }
 

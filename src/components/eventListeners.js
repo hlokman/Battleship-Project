@@ -15,12 +15,12 @@ function play() {
 
   gameboardUpdate(players);
   (function displayController() {
-    const gridDiv2 = document.querySelector("#gridDiv2");
-    const playerGrid = document.querySelector("#grid1");
-    const controllers = document.querySelector("#controllers");
+    const gridDiv2 = document.querySelector(".gridDiv2");
+    const playerGrid = document.querySelector(".grid1");
+    const controllers = document.querySelector(".controllers");
     const ships = document.querySelector("#choices");
-    const start = document.querySelector("#startButton");
-    const restart = document.querySelector("#restartButton");
+    const start = document.querySelector(".startButton");
+    const restart = document.querySelector(".restartButton");
     let chosenLength = 3;
     let position = "horizontal";
     let maxPlacement = 0;
